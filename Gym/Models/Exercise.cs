@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-
-namespace Gym.Models
+﻿namespace Gym.Models
 {
     public class Exercise
     {

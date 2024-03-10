@@ -554,7 +554,6 @@ D:\GymApp\Gym\obj\Debug\net6.0\Gym.MvcApplicationPartsAssemblyInfo.cs
 D:\GymApp\Gym\obj\Debug\net6.0\Gym.MvcApplicationPartsAssemblyInfo.cache
 D:\GymApp\Gym\obj\Debug\net6.0\Gym.RazorAssemblyInfo.cache
 D:\GymApp\Gym\obj\Debug\net6.0\Gym.RazorAssemblyInfo.cs
-D:\GymApp\Gym\obj\Debug\net6.0\Gym.sourcelink.json
 D:\GymApp\Gym\obj\Debug\net6.0\staticwebassets.build.json
 D:\GymApp\Gym\obj\Debug\net6.0\staticwebassets.development.json
 D:\GymApp\Gym\obj\Debug\net6.0\staticwebassets\msbuild.Gym.Microsoft.AspNetCore.StaticWebAssets.props
