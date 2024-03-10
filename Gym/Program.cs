@@ -13,15 +13,19 @@ namespace Gym
 
             builder.Services.AddControllers();
 
-            builder.Services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString));
 
             // Add services to the container.
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
+            builder.Services.AddDistributedMemoryCache();
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
-
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddDefaultTokenProviders()
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
@@ -41,6 +45,7 @@ namespace Gym
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
+
             });
 
             builder.Services.ConfigureApplicationCookie(options =>
