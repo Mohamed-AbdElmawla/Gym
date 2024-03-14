@@ -11,6 +11,7 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Gym.Data;
+using Gym.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Logging;
 
 namespace Gym.Areas.Identity.Pages.Account
@@ -31,13 +34,15 @@ namespace Gym.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _hostingEnvironment;
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ApplicationDbContext context)
+            ApplicationDbContext context,
+            IWebHostEnvironment hostingEnvironment)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -46,6 +51,7 @@ namespace Gym.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _context = context;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         /// <summary>
@@ -106,10 +112,28 @@ namespace Gym.Areas.Identity.Pages.Account
             [StringLength(11, MinimumLength = 11)]
             public string Phone { get; set; }
             [Display(Name = "Photo")]
-            public IFormFile Photo { get; set; }
+            [MaxFileSize(5 * 1024 * 1024, ErrorMessage = "The profile picture must be less than 5MB.")]
+            [FileExtensions(Extensions = ".jpg,.jpeg,.png,.gif", ErrorMessage = "Only JPG, JPEG, PNG, and GIF files are allowed.")]
+            public IFormFile? Photo { get; set; }
             //
             [Required]
             public string Role { get; set; }
+            [Required(ErrorMessage = "First name is required.")]
+            [StringLength(50, ErrorMessage = "First name must be less than 50 characters.")]
+            [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "First name must contain only alphabetic characters.")]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required(ErrorMessage = "Last name is required.")]
+            [StringLength(50, ErrorMessage = "Last name must be less than 50 characters.")]
+            [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Last name must contain only alphabetic characters.")]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+            [Required]
+            [Display(Name = "Birth Date")]
+            [DataType(DataType.Date)]
+            public DateTime DOB { get; set; }
+
         }
 
 
@@ -127,6 +151,36 @@ namespace Gym.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
                 user.PhoneNumber = Input.Phone;
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                user.DOB = Input.DOB;
+                if (Input.Photo != null && Input.Photo.Length > 0)
+                {
+                    try
+                    {
+                        // Generate unique filename
+                        var uniqueFileName = Guid.NewGuid().ToString() + "_" + Input.Photo.FileName;
+
+                        // Construct the wwwroot folder path
+                        var uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+
+                        // Save file to wwwroot/images folder
+                        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await Input.Photo.CopyToAsync(fileStream);
+                        }
+
+                        // Return a response with the URL of the uploaded image
+                        var imageUrl = "/images/" + uniqueFileName;
+                        user.ProfilePicturePath = imageUrl;
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions
+                        return StatusCode(StatusCodes.Status500InternalServerError, "Error uploading file: " + ex.Message);
+                    }
+                }
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -168,16 +222,16 @@ namespace Gym.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
+                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
