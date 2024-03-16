@@ -23,7 +23,7 @@ namespace Gym
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
-            //
+            //      
             builder.Services.Configure<IdentityOptions>(options =>
             {
                 options.User.RequireUniqueEmail = true;
