@@ -857,3 +857,4 @@ D:\faculty materials\level 3\Second term\Project\.net\Gym\Gym\obj\Debug\net6.0\s
 D:\faculty materials\level 3\Second term\Project\.net\Gym\Gym\obj\Debug\net6.0\Gym.csproj.CopyComplete
 D:\faculty materials\level 3\Second term\Project\.net\Gym\Gym\obj\Debug\net6.0\Gym.genruntimeconfig.cache
 D:\faculty materials\level 3\Second term\Project\.net\Gym\Gym\obj\Debug\net6.0\ref\Gym.dll
+D:\GymApp\Gym\obj\Debug\net6.0\Gym.sourcelink.json

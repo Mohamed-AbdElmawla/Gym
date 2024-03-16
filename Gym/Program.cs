@@ -7,57 +7,35 @@ namespace Gym
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            builder.Services.AddControllers();
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
-
-            // Add services to the container.
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             builder.Services.AddDistributedMemoryCache();
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddRazorPages();
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddDefaultTokenProviders()
-                .AddDefaultUI()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+            //
             builder.Services.Configure<IdentityOptions>(options =>
             {
-                // Password settings.
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 6;
-                options.Password.RequiredUniqueChars = 1;
-
-                // Lockout settings.
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.AllowedForNewUsers = true;
-
-                // User settings.
-                options.User.AllowedUserNameCharacters =
-                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
 
             });
+            //
 
-            builder.Services.ConfigureApplicationCookie(options =>
-            {
-                // Cookie settings
-                options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+            builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddControllersWithViews();
 
-                options.LoginPath = "/Identity/Account/Login";
-                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-                options.SlidingExpiration = true;
-            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -84,6 +62,44 @@ namespace Gym
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var roleManger = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                var roles = new[] { "Manger", "Admin", "Coach", "Member" };
+
+                foreach (var role in roles)
+                {
+                    if (!await roleManger.RoleExistsAsync(role))
+                    {
+                        await roleManger.CreateAsync(new IdentityRole(role));
+                    }
+                }
+
+            }
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var userManger = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+                var email = "admin@gym.com";
+                var password = "@Mm1234";
+
+                if (await userManger.FindByEmailAsync(email) == null)
+                {
+                    var admin = new ApplicationUser();
+                    admin.FirstName = "Admin";
+                    admin.LastName = "Admin";
+                    admin.PhoneNumber = "00000000000";
+                    admin.UserName = email;
+                    admin.Email = email;
+                    admin.DOB = new DateTime(2003, 10, 26);
+                    await userManger.CreateAsync(admin, password);
+                    await userManger.AddToRoleAsync(admin, "Admin");
+
+                }
+            }
 
             app.Run();
         }
