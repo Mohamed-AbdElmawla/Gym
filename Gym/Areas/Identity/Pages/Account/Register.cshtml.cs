@@ -27,18 +27,18 @@ namespace Gym.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IUserStore<IdentityUser> _userStore;
-        private readonly IUserEmailStore<IdentityUser> _emailStore;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserStore<ApplicationUser> _userStore;
+        private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _hostingEnvironment;
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            IUserStore<IdentityUser> userStore,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            IUserStore<ApplicationUser> userStore,
+            SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             ApplicationDbContext context,
@@ -115,8 +115,8 @@ namespace Gym.Areas.Identity.Pages.Account
             [MaxFileSize(5 * 1024 * 1024, ErrorMessage = "The profile picture must be less than 5MB.")]
             [FileExtensions(Extensions = ".jpg,.jpeg,.png,.gif", ErrorMessage = "Only JPG, JPEG, PNG, and GIF files are allowed.")]
             public IFormFile? Photo { get; set; }
-            //
-            [Required]
+
+            [Required(ErrorMessage = "Role is required")]
             public string Role { get; set; }
             [Required(ErrorMessage = "First name is required.")]
             [StringLength(50, ErrorMessage = "First name must be less than 50 characters.")]
@@ -132,6 +132,7 @@ namespace Gym.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Birth Date")]
             [DataType(DataType.Date)]
+            [MinimumAge(15,ErrorMessage ="You have to be at least 15 years to register")]
             public DateTime DOB { get; set; }
 
         }
@@ -236,13 +237,13 @@ namespace Gym.Areas.Identity.Pages.Account
             }
         }
 
-        private IUserEmailStore<IdentityUser> GetEmailStore()
+        private IUserEmailStore<ApplicationUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<IdentityUser>)_userStore;
+            return (IUserEmailStore<ApplicationUser>)_userStore;
         }
     }
 }

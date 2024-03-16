@@ -31,7 +31,7 @@ namespace Gym
             });
             //
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+            builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
@@ -81,17 +81,21 @@ namespace Gym
 
             using (var scope = app.Services.CreateScope())
             {
-                var userManger = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+                var userManger = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
                 var email = "admin@gym.com";
                 var password = "@Mm1234";
 
                 if (await userManger.FindByEmailAsync(email) == null)
                 {
-                    var admin = new IdentityUser { Email = email, UserName = email };
-
+                    var admin = new ApplicationUser();
+                    admin.FirstName = "Admin";
+                    admin.LastName = "Admin";
+                    admin.PhoneNumber = "00000000000";
+                    admin.UserName = email;
+                    admin.Email = email;
+                    admin.DOB = new DateTime(2003, 10, 26);
                     await userManger.CreateAsync(admin, password);
-
                     await userManger.AddToRoleAsync(admin, "Admin");
 
                 }
