@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\GymApp\\Gym\\wwwroot\\images\\904c0b60-8d52-427b-8010-6eb7e2322507.jpg",
+      "PackagePath": "staticwebassets\\images\\904c0b60-8d52-427b-8010-6eb7e2322507.jpg"
+    },
+    {
       "Id": "D:\\GymApp\\Gym\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

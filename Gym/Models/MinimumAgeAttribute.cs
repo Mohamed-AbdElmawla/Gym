@@ -2,6 +2,7 @@
 
 namespace Gym.Models
 {
+    [AttributeUsage(AttributeTargets.Property)]
     public class MinimumAgeAttribute : ValidationAttribute
     {
         public int _MinAge { get; set; }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
@@ -14,6 +15,7 @@ using Gym.Data;
 using Gym.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -112,9 +114,10 @@ namespace Gym.Areas.Identity.Pages.Account
             [StringLength(11, MinimumLength = 11)]
             public string Phone { get; set; }
             [Display(Name = "Photo")]
-            [MaxFileSize(5 * 1024 * 1024, ErrorMessage = "The profile picture must be less than 5MB.")]
-            [FileExtensions(Extensions = ".jpg,.jpeg,.png,.gif", ErrorMessage = "Only JPG, JPEG, PNG, and GIF files are allowed.")]
-            public IFormFile? Photo { get; set; }
+            [PhotoValidation(5 * 1024 * 1024,new string[] {".jpg", ".png", ".jpeg"})]
+            [DataType(DataType.Upload)]
+            [Required(ErrorMessage = "Photo is required.")]
+            public IFormFile Photo { get; set; }
 
             [Required(ErrorMessage = "Role is required")]
             public string Role { get; set; }
@@ -129,11 +132,14 @@ namespace Gym.Areas.Identity.Pages.Account
             [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "Last name must contain only alphabetic characters.")]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
-            [Required]
+            [Required(ErrorMessage="Birth date is required")]
             [Display(Name = "Birth Date")]
             [DataType(DataType.Date)]
             [MinimumAge(15,ErrorMessage ="You have to be at least 15 years to register")]
             public DateTime DOB { get; set; }
+            [Required(ErrorMessage = "Gender date is required")]
+            [Display(Name = "Gender")]
+            public Gender Gender { get; set; }
 
         }
 
@@ -155,34 +161,38 @@ namespace Gym.Areas.Identity.Pages.Account
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
                 user.DOB = Input.DOB;
+                user.Gender = Input.Gender;
                 if (Input.Photo != null && Input.Photo.Length > 0)
                 {
                     try
                     {
-                        // Generate unique filename
-                        var uniqueFileName = Guid.NewGuid().ToString() + "_" + Input.Photo.FileName;
+                            // Get the wwwroot path
+                            string uploadPath = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+                            Directory.CreateDirectory(uploadPath);
+                            // Generate a unique filename for the uploaded file
+                            string newfilename = $"{Guid.NewGuid().ToString()}{Path.GetExtension(Input.Photo.FileName)}";
+                            string fileName = Path.Combine(uploadPath, newfilename);
 
-                        // Construct the wwwroot folder path
-                        var uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+                            // Save the file to the server
+                            using (var fileStream = new FileStream(fileName, FileMode.Create))
+                            {
+                                Input.Photo.CopyTo(fileStream);
+                            }
+                            user.ProfilePicturePath = $"/images/{newfilename}";
 
-                        // Save file to wwwroot/images folder
-                        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await Input.Photo.CopyToAsync(fileStream);
-                        }
+                        Console.WriteLine(uploadPath);
+                        Console.WriteLine(fileName);
 
-                        // Return a response with the URL of the uploaded image
-                        var imageUrl = "/images/" + uniqueFileName;
-                        user.ProfilePicturePath = imageUrl;
                     }
                     catch (Exception ex)
                     {
                         // Handle exceptions
                         return StatusCode(StatusCodes.Status500InternalServerError, "Error uploading file: " + ex.Message);
                     }
-                }
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+            }
+            else
+                user.ProfilePicturePath = "/images/default.jpg";
+            await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
