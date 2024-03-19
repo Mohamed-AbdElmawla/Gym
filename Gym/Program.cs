@@ -31,7 +31,7 @@ namespace Gym
             });
             //
 
-            builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+            builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
@@ -95,6 +95,7 @@ namespace Gym
                     admin.UserName = email;
                     admin.Email = email;
                     admin.DOB = new DateTime(2003, 10, 26);
+                    admin.EmailConfirmed = true;
                     await userManger.CreateAsync(admin, password);
                     await userManger.AddToRoleAsync(admin, "Admin");
 

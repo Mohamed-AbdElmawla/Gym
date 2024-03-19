@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "AkEG7IDWQ2MOTgqU//qgI1bVLMuNsd8IMRqrSGhgnKM=",
+  "Hash": "cQNFScGuweFttJ0swPDkR513hu2TwgeQRSGpcIEz7Bg=",
   "Source": "Gym",
   "BasePath": "_content/Gym",
   "Mode": "Default",
@@ -1231,6 +1231,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\GymApp\\Gym\\wwwroot\\images\\904c0b60-8d52-427b-8010-6eb7e2322507.jpg",
+      "SourceId": "Gym",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\GymApp\\Gym\\wwwroot\\",
+      "BasePath": "_content/Gym",
+      "RelativePath": "images/904c0b60-8d52-427b-8010-6eb7e2322507.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\904c0b60-8d52-427b-8010-6eb7e2322507.jpg"
     },
     {
       "Identity": "D:\\GymApp\\Gym\\wwwroot\\js\\site.js",

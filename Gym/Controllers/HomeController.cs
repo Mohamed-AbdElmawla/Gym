@@ -1,5 +1,6 @@
 ﻿using Gym.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
 namespace Gym.Controllers
@@ -12,7 +13,6 @@ namespace Gym.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View();

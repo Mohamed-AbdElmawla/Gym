@@ -3,6 +3,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Gym.Models
 {
+    public enum Gender
+    {
+        Male,
+        Female
+
+    }
     public class ApplicationUser : IdentityUser
     {
         [PersonalData]
@@ -12,6 +18,8 @@ namespace Gym.Models
 
         [PersonalData]
         public string LastName { get; set; }
+        [PersonalData]
+        public Gender Gender { get; set; }
         [PersonalData]
         public string? ProfilePicturePath { get; set; }
     }
