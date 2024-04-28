@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cQNFScGuweFttJ0swPDkR513hu2TwgeQRSGpcIEz7Bg=",
+  "Hash": "sASnDUQX1RHqdrbosOddLzUchj7W1NwJd59lXLKhqMY=",
   "Source": "Gym",
   "BasePath": "_content/Gym",
   "Mode": "Default",
@@ -1233,12 +1233,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "D:\\GymApp\\Gym\\wwwroot\\images\\904c0b60-8d52-427b-8010-6eb7e2322507.jpg",
+      "Identity": "D:\\GymApp\\Gym\\wwwroot\\images\\c4dec9d9-d94f-4a20-ad29-77ac621bfb9f.jpg",
       "SourceId": "Gym",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\GymApp\\Gym\\wwwroot\\",
       "BasePath": "_content/Gym",
-      "RelativePath": "images/904c0b60-8d52-427b-8010-6eb7e2322507.jpg",
+      "RelativePath": "images/c4dec9d9-d94f-4a20-ad29-77ac621bfb9f.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1249,7 +1249,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\904c0b60-8d52-427b-8010-6eb7e2322507.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\c4dec9d9-d94f-4a20-ad29-77ac621bfb9f.jpg"
     },
     {
       "Identity": "D:\\GymApp\\Gym\\wwwroot\\js\\site.js",

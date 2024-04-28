@@ -178,10 +178,7 @@ namespace Gym.Areas.Identity.Pages.Account
                             {
                                 Input.Photo.CopyTo(fileStream);
                             }
-                            user.ProfilePicturePath = $"/images/{newfilename}";
-
-                        Console.WriteLine(uploadPath);
-                        Console.WriteLine(fileName);
+                            user.ProfilePicturePath = fileName;
 
                     }
                     catch (Exception ex)

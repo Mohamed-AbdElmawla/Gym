@@ -12,31 +12,51 @@ namespace Gym.Data
 
         }
 
-        public List<TrainingPlan> trainingPlans { get; set; }
-        public List<Exercise> Exercises { get; set; }
-        public List<Set> sets { get; set; }
-        public List<Subscription> subscriptions { get; set; }
-
+        public DbSet<TrainingPlan> trainingPlans { get; set; }
+        public DbSet<Exercise> Exercises { get; set; }
+        public DbSet<Set> sets { get; set; }
+        public DbSet<Subscription> subscriptions { get; set; }
+        public DbSet<Category> Categories { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<IdentityUser>()
+
+            modelBuilder.Entity<ApplicationUser>()
                .HasMany<TrainingPlan>()
                .WithOne(e => e.User)
                .HasForeignKey(e => e.UserId)
-               .IsRequired();
+               .IsRequired()
+               .OnDelete(DeleteBehavior.ClientCascade);
 
             modelBuilder.Entity<TrainingPlan>()
                .HasMany<Set>()
                .WithOne(e => e.TrainingPlan)
                .HasForeignKey(e => e.TrainingId)
-               .IsRequired();
+               .IsRequired()
+               .OnDelete(DeleteBehavior.ClientCascade);
+
 
             modelBuilder.Entity<Exercise>()
                .HasMany<Set>()
                .WithOne(e => e.Exercise)
                .HasForeignKey(e => e.ExerciseId)
-               .IsRequired();
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Restrict);
+            /*
+            modelBuilder.Entity<Category>()
+               .HasMany<Exercise>()
+               .WithOne(e => e.Muscle)
+               .HasForeignKey(e => e.MuscleId)
+               .IsRequired()
+               .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Category>()
+               .HasMany<Exercise>()
+               .WithOne(e => e.Equipment)
+               .HasForeignKey(e => e.EquipmentId)
+               .IsRequired()
+               .OnDelete(DeleteBehavior.NoAction);
+            */
+
         }
 
     }
