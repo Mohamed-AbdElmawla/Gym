@@ -858,3 +858,6 @@ D:\faculty materials\level 3\Second term\Project\.net\Gym\Gym\obj\Debug\net6.0\G
 D:\faculty materials\level 3\Second term\Project\.net\Gym\Gym\obj\Debug\net6.0\Gym.genruntimeconfig.cache
 D:\faculty materials\level 3\Second term\Project\.net\Gym\Gym\obj\Debug\net6.0\ref\Gym.dll
 D:\GymApp\Gym\obj\Debug\net6.0\Gym.sourcelink.json
+D:\GymApp\Gym\bin\Debug\net6.0\Microsoft.Extensions.Configuration.UserSecrets.dll
+D:\GymApp\Gym\bin\Debug\net6.0\SendGrid.dll
+D:\GymApp\Gym\bin\Debug\net6.0\StarkbankEcdsa.dll

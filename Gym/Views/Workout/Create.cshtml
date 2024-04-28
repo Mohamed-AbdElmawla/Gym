@@ -1,0 +1,44 @@
+﻿@model Gym.View_Models.CreatingTrainingPlaneViewModel
+
+<h2>Training Plan Entry Form</h2>
+
+<!-- Cancel and Save buttons -->
+<div class="d-flex justify-content-between mb-4">
+    <a href="#" class="btn btn-danger">Cancel</a>
+    <div class="ml-auto">
+        <button type="submit" form="trainingPlanForm" class="btn btn-success">Save</button>
+    </div>
+</div>
+
+<!-- Form for entering training plan details -->
+<form id="trainingPlanForm" asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="planName">Plan Name:</label>
+        <input type="text" class="form-control" id="planName" name="Name" value="@Model.Name" placeholder="Enter plan name" />
+    </div>
+
+    <!-- Display existing exercise details if available -->
+    @if (Model.Sets != null && Model.Sets.Any())
+    {
+        <h3>Existing Exercise Details:</h3>
+        @foreach (var exerciseSet in Model.Sets)
+        {
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h4>@exerciseSet.Exercise.Name</h4>
+                    <img src="@exerciseSet.Exercise.ImageUrl" alt="@exerciseSet.Exercise.Name" class="img-fluid mb-3" style="max-width: 300px;" />
+                    <ul>
+                        @foreach (var set in exerciseSet.Field)
+                        {
+                            <li>
+                                <strong>Set Number:</strong> @set.SetCount <br />
+                                <strong>Weight:</strong> @set.Weight
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    }
+    <button type="button" class="btn btn-primary mt-4" onclick="location.href='@Url.Action("AddExercise", "Exercise")'">Add Exercise</button>
+</form>
