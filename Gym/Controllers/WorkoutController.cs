@@ -8,6 +8,7 @@ using Gym.View_Models;
 using System.Linq;
 using System.Collections.Specialized;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 namespace Gym.Controllers
 {
     [Authorize]
@@ -23,19 +24,64 @@ namespace Gym.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            HttpContext.Session.Remove(SessionKeyPlan);
             string id = _userManager.GetUserId(User);
             var trainingPlans = await _context.trainingPlans.Where(x => x.UserId == id).ToListAsync();
             return View(trainingPlans);
         }
+        [HttpGet]
         public IActionResult Create()
         {
-            if (HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan) == default)
+            var temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan);
+
+            if (temp == default)
             {
-                CreatingTrainingPlaneViewModel temp = new CreatingTrainingPlaneViewModel();
+                temp = new CreatingTrainingPlaneViewModel();
+
                 HttpContext.Session.SetObject(SessionKeyPlan, temp);
             }
-            return View(HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan));
+            return View(temp);
         }
-        
+        [HttpPost]
+        public async Task<IActionResult> SaveThePlan()
+        {
+            var temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan);
+
+            if (temp == default)
+            {
+                temp = new CreatingTrainingPlaneViewModel();
+
+                HttpContext.Session.SetObject(SessionKeyPlan, temp);
+            }
+            if (temp.Name == null)
+            {
+                TempData["ErrorMessage"] = "You should enter the name of the plan";
+
+                return RedirectToAction("Create");
+            }
+            try
+            {
+                string id = _userManager.GetUserId(User);
+                TrainingPlan trainingPlan = new TrainingPlan
+                {
+                    UserId = id,
+                    Name = temp.Name,
+                    Date = DateTime.Now
+                };
+                await _context.trainingPlans.AddAsync(trainingPlan);
+                await _context.SaveChangesAsync();
+                foreach (var set in temp.Sets)
+                {
+                    set.TrainingId = trainingPlan.Id;
+                }
+                await _context.sets.AddRangeAsync(temp.Sets);
+                await _context.SaveChangesAsync();
+                HttpContext.Session.Remove(SessionKeyPlan);
+            }catch (Exception e)
+            {
+                await Console.Out.WriteLineAsync("will thats fuccked shit");
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -1,1 +1,147 @@
 ﻿@model List<Exercise>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise List</title>
+    <style>
+
+        body, h1, h2, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 12px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+            tr.header, tr:hover {
+                background-color: #f1f1f1;
+            }
+
+        .exercise-image {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .button {
+            background-color: #04AA6D;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+            .button.cancel {
+                background-color: #FF5733;
+            }
+
+            .button:hover {
+                background-color: #038C5A;
+            }
+    </style>
+</head>
+<body>
+    <input type="text" id="myInput" onkeyup="filterExercises()" placeholder="Search for exercise names...">
+    <div style="height: 300px; overflow-y: auto;">
+        <table id="myTable">
+            <tr class="header">
+                <th style="width: 10%;">Check Box</th>
+                <th style="width: 60%;">Exercise Name</th>
+                <th style="width: 40%;">Image</th>
+            </tr>
+            <!-- Iterate over the list of exercises -->
+            @foreach (var exercise in Model)
+            {
+                <tr>
+                    <td><input type="checkbox" class="exercise-checkbox" value="@exercise.Id"></td>
+                    <td><a href="@Url.Action("ExerciseDetails", "Exercise", new { ExerciseId = exercise.Id })">@exercise.Name</a></td>
+                    <td><img src="@exercise.ImageUrl" alt="@exercise.Name" class="exercise-image"></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <button class="button" onclick="saveSelectedExercises()">Add</button>
+    <button class="button cancel" onclick="goBack()">Cancel</button>
+
+    <script>
+        function filterExercises() {
+            const input = document.getElementById("myInput");
+            const filter = input.value.toUpperCase();
+            const table = document.getElementById("myTable");
+            const rows = table.getElementsByTagName("tr");
+
+            for (let i = 0; i < rows.length; i++) {
+                const td = rows[i].getElementsByTagName("td")[1]; 
+                if (td) {
+                    const txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().includes(filter)) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function saveSelectedExercises() {
+            const selectedIds = [];
+            const checkboxes = document.querySelectorAll(".exercise-checkbox:checked");
+            checkboxes.forEach((checkbox) => {
+                selectedIds.push(checkbox.value);
+            });
+            $.ajax({
+                url: "/Exercise/SaveExercise", 
+                type: "POST",
+                data: { exerciseIds: selectedIds },
+                success: function (response) {
+                    console.log("Exercises saved successfully!");
+                    window.location.href = "/Workout/Create";
+                },
+                error: function (error) {
+                    console.error("Error saving exercises:", error);
+                }
+            });
+        }
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

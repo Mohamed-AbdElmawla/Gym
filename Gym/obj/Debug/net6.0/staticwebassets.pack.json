@@ -13,6 +13,26 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\GymApp\\Gym\\wwwroot\\images\\Plank.png",
+      "PackagePath": "staticwebassets\\images\\Plank.png"
+    },
+    {
+      "Id": "D:\\GymApp\\Gym\\wwwroot\\images\\Pull-up.png",
+      "PackagePath": "staticwebassets\\images\\Pull-up.png"
+    },
+    {
+      "Id": "D:\\GymApp\\Gym\\wwwroot\\images\\Push-up.png",
+      "PackagePath": "staticwebassets\\images\\Push-up.png"
+    },
+    {
+      "Id": "D:\\GymApp\\Gym\\wwwroot\\images\\Squat.png",
+      "PackagePath": "staticwebassets\\images\\Squat.png"
+    },
+    {
+      "Id": "D:\\GymApp\\Gym\\wwwroot\\images\\a615c490-ce29-43f2-9a5d-edb246d4141e.jpg",
+      "PackagePath": "staticwebassets\\images\\a615c490-ce29-43f2-9a5d-edb246d4141e.jpg"
+    },
+    {
       "Id": "D:\\GymApp\\Gym\\wwwroot\\images\\c4dec9d9-d94f-4a20-ad29-77ac621bfb9f.jpg",
       "PackagePath": "staticwebassets\\images\\c4dec9d9-d94f-4a20-ad29-77ac621bfb9f.jpg"
     },
