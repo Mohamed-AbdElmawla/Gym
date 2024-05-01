@@ -1,44 +1,126 @@
 ﻿@model Gym.View_Models.CreatingTrainingPlaneViewModel
 
-<h2>Training Plan Entry Form</h2>
-
-<!-- Cancel and Save buttons -->
-<div class="d-flex justify-content-between mb-4">
-    <a href="#" class="btn btn-danger">Cancel</a>
-    <div class="ml-auto">
-        <button type="submit" form="trainingPlanForm" class="btn btn-success">Save</button>
-    </div>
-</div>
-
-<!-- Form for entering training plan details -->
-<form id="trainingPlanForm" asp-action="Create" method="post">
-    <div class="form-group">
-        <label for="planName">Plan Name:</label>
-        <input type="text" class="form-control" id="planName" name="Name" value="@Model.Name" placeholder="Enter plan name" />
-    </div>
-
-    <!-- Display existing exercise details if available -->
-    @if (Model.Sets != null && Model.Sets.Any())
-    {
-        <h3>Existing Exercise Details:</h3>
-        @foreach (var exerciseSet in Model.Sets)
-        {
-            <div class="card mt-3">
-                <div class="card-body">
-                    <h4>@exerciseSet.Exercise.Name</h4>
-                    <img src="@exerciseSet.Exercise.ImageUrl" alt="@exerciseSet.Exercise.Name" class="img-fluid mb-3" style="max-width: 300px;" />
-                    <ul>
-                        @foreach (var set in exerciseSet.Field)
-                        {
-                            <li>
-                                <strong>Set Number:</strong> @set.SetCount <br />
-                                <strong>Weight:</strong> @set.Weight
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Plan Entry Form</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
         }
-    }
-    <button type="button" class="btn btn-primary mt-4" onclick="location.href='@Url.Action("AddExercise", "Exercise")'">Add Exercise</button>
-</form>
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .card {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+        <form id="trainingPlanForm" asp-action="SaveThePlan" method="post">
+            <div class="container">
+                <h2>Training Plan Entry Form</h2>
+
+                <!-- Cancel and Save buttons -->
+                <div type="button" class="d-flex justify-content-between">
+                    <a href="/Workout" class="btn btn-danger">Cancel</a>
+                    <button type="submit" form="trainingPlanForm" class="btn btn-success">Save</button>
+                </div>
+                @if (TempData.Peek("ErrorMessage") != null)
+                {
+                    <h1 style="color:red;">@TempData["ErrorMessage"]</h1>
+                }
+                <div class="form-group">
+                    <label for="planName">Plan Name:</label>
+                    <input type="text" id="PlanName" name="Model.Name" value="@Model.Name" placeholder="Enter plan name">
+                </div>
+
+                <!-- Display existing exercise details if available -->
+                @if (Model.Sets != null && Model.Sets.Any())
+                {
+                    <h3>Existing Exercise Details:</h3>
+                    @for (var i = 0; i < Model.Sets.Count; i++)
+                    {
+                        var exerciseSet = Model.Sets[i];
+                        <div class="card">
+                            <div class="card-body">
+                                <button type="button" onclick="location.href='@Url.Action("DeleteExercise", "Exercise", new { index = i })'">Delete</button>
+                                <h4><a href="@Url.Action("ExerciseDetails", "Exercise", new { ExerciseId = exerciseSet.ExerciseId })">@exerciseSet.Exercise.Name</a></h4>
+                                <img src="@exerciseSet.Exercise.ImageUrl" alt="@exerciseSet.Exercise.Name">
+                                <ul>
+                                    <div class="sets-container">
+                                        @for (var j = 0; j < exerciseSet.Field.Count; j++)
+                                        {
+                                            var set = exerciseSet.Field[j];
+                                            <div class="set">
+                                                <strong>Set @(j + 1):</strong>
+                                                Weight: <input type="number" class="set-input" name="Weight" value="@set.Weight" step="0.5">
+                                                Reps: <input type="number" class="set-input" name="Reps" value="@set.Reps" min="0">
+                                                <button type="button" class="delete-set-button" onclick="location.href='@Url.Action("DeleteSet", "Exercise", new { exerciseIndex = i, setIndex=j })'">Delete</button>
+                                            </div>
+                                        }
+                                    </div>
+                                </ul>
+                                <button type ="button" class="add-set-button" onclick="location.href='@Url.Action("AddSet", "Exercise", new { exerciseIndex = i })'">Add Set</button>
+                            </div>
+                        </div>
+                    }
+                }
+                <button type="button" class="btn btn-primary mt-4" onclick="location.href='@Url.Action("AddExercise", "Exercise")'">Add Exercise</button>
+            </div>
+        </form>
+</body>
+</html>

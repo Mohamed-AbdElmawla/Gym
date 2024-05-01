@@ -178,7 +178,7 @@ namespace Gym.Areas.Identity.Pages.Account
                             {
                                 Input.Photo.CopyTo(fileStream);
                             }
-                            user.ProfilePicturePath = fileName;
+                            user.ProfilePicturePath = Path.Combine("images", fileName);
 
                     }
                     catch (Exception ex)
@@ -188,7 +188,7 @@ namespace Gym.Areas.Identity.Pages.Account
                     }
             }
             else
-                user.ProfilePicturePath = "/images/default.jpg";
+                user.ProfilePicturePath = "~/images/default.jpg";
             await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
