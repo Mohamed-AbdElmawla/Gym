@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Gym.Models;
+using Gym.Data;
 
 namespace Gym.Areas.Identity.Pages.Account
 {
@@ -22,11 +23,15 @@ namespace Gym.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
+            _context = context;
         }
 
         /// <summary>
@@ -116,6 +121,8 @@ namespace Gym.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    ViewData["ImagePath"] = user.ProfilePicturePath;
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

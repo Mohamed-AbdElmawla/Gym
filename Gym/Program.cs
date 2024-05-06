@@ -39,7 +39,7 @@ namespace Gym
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddTransient<IEmailSender, EmailSender>();
+            //builder.Services.AddTransient<IEmailSender, EmailSender>();
             builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
             var app = builder.Build();

@@ -116,7 +116,7 @@ namespace Gym.Areas.Identity.Pages.Account
             [Display(Name = "Photo")]
             [PhotoValidation(5 * 1024 * 1024,new string[] {".jpg", ".png", ".jpeg"})]
             [DataType(DataType.Upload)]
-            [Required(ErrorMessage = "Photo is required.")]
+            //[Required(ErrorMessage = "Photo is required.")]
             public IFormFile Photo { get; set; }
 
             [Required(ErrorMessage = "Role is required")]
@@ -166,19 +166,19 @@ namespace Gym.Areas.Identity.Pages.Account
                 {
                     try
                     {
-                            // Get the wwwroot path
-                            string uploadPath = Path.Combine(_hostingEnvironment.WebRootPath, "images");
-                            Directory.CreateDirectory(uploadPath);
-                            // Generate a unique filename for the uploaded file
-                            string newfilename = $"{Guid.NewGuid().ToString()}{Path.GetExtension(Input.Photo.FileName)}";
-                            string fileName = Path.Combine(uploadPath, newfilename);
+                        // Get the wwwroot path
+                        string uploadPath = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+                        Directory.CreateDirectory(uploadPath);
+                        // Generate a unique filename for the uploaded file
+                        string newfilename = $"{Guid.NewGuid().ToString()}{Path.GetExtension(Input.Photo.FileName)}";
+                        string fileName = Path.Combine(uploadPath, newfilename);
 
-                            // Save the file to the server
-                            using (var fileStream = new FileStream(fileName, FileMode.Create))
-                            {
-                                Input.Photo.CopyTo(fileStream);
-                            }
-                            user.ProfilePicturePath = Path.Combine("images", fileName);
+                        // Save the file to the server
+                        using (var fileStream = new FileStream(fileName, FileMode.Create))
+                        {
+                            Input.Photo.CopyTo(fileStream);
+                        }
+                        user.ProfilePicturePath = Path.Combine("images", newfilename);
 
                     }
                     catch (Exception ex)
@@ -186,10 +186,19 @@ namespace Gym.Areas.Identity.Pages.Account
                         // Handle exceptions
                         return StatusCode(StatusCodes.Status500InternalServerError, "Error uploading file: " + ex.Message);
                     }
-            }
-            else
-                user.ProfilePicturePath = "~/images/default.jpg";
-            await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                }
+                else
+                {
+                    if (user.Gender == Gender.Male)
+                    {
+                        user.ProfilePicturePath = "/images/male.png";
+                    }
+                    else
+                    {
+                        user.ProfilePicturePath = "/images/female.png";
+                    }
+                }
+                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -217,6 +226,7 @@ namespace Gym.Areas.Identity.Pages.Account
                     {
                         await _userManager.AddToRoleAsync(user, Input.Role);
                         await _signInManager.SignInAsync(user, isPersistent: false);
+                        ViewData["ImagePath"] = user.ProfilePicturePath;
                         return LocalRedirect(returnUrl);
                     }
                 }

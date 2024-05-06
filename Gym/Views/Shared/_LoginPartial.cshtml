@@ -1,12 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@inject UserManager<ApplicationUser> UserManager 
+@*// why register and login not working when it's working *@
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+        <li class="nav-item">
+            <a asp-controller="Trainee" asp-action="Profile">
+                <img src="@ViewData["ImagePath"]" alt="Profile Picture" class="nav-link text-dark" style="width: 50px; height: 50px; border-radius: 50%">
+            </a>
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
