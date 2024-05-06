@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections.Specialized;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace Gym.Controllers
 {
     [Authorize]
@@ -17,6 +18,8 @@ namespace Gym.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         public const string SessionKeyPlan = "_TrainingPlan";
+        [BindProperty]
+        public static CreatingTrainingPlaneViewModel input { get; set; }
         public WorkoutController(ApplicationDbContext context,UserManager<ApplicationUser> userManager)
         {
             _context = context;
@@ -32,56 +35,93 @@ namespace Gym.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan);
+            input = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan);
 
-            if (temp == default)
+            if (input == default)
             {
-                temp = new CreatingTrainingPlaneViewModel();
+                input = new CreatingTrainingPlaneViewModel();
 
-                HttpContext.Session.SetObject(SessionKeyPlan, temp);
+                HttpContext.Session.SetObject(SessionKeyPlan, input);
             }
-            return View(temp);
+            return View(input);
+        }
+        [HttpPost]
+        public IActionResult MangeRequests(int? op, int? setIndex, int? feildSetIndex)
+        {
+            if (op == null)
+            {
+                TempData["ErrorMessage"] = "Unexpected Error,please try again";
+                return RedirectToAction("Create");
+            }
+            HttpContext.Session.SetObject(SessionKeyPlan, input);
+            if (op == 0)
+            {
+                if (ModelState.IsValid)
+                {
+                    return RedirectToAction("SaveThePlan");
+                }
+            }else if(op == 1)
+            {
+                if(setIndex != null)
+                {
+                    return RedirectToAction("DeleteExercise", "Exercise", new { setIndex = setIndex });
+                }
+                
+            }else if(op== 2)
+            {
+                if (setIndex != null&& feildSetIndex != null)
+                {
+                    return RedirectToAction("DeleteSet", "Exercise", new { setIndex = setIndex, feildSetIndex = feildSetIndex });
+                }
+
+            }else if (op == 3)
+            {
+                if (setIndex != null)
+                {
+                    return RedirectToAction("AddSet", "Exercise", new { setIndex = setIndex });
+                }
+            }else if (op == 4)
+            {
+
+                return RedirectToAction("AddExercise", "Exercise");
+            }
+                TempData["ErrorMessage"] = "Unexpected Error,please try again";
+                return RedirectToAction("Create");
         }
         [HttpPost]
         public async Task<IActionResult> SaveThePlan()
         {
-            var temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan);
-
-            if (temp == default)
+            input = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan);
+            if (input != default)
             {
-                temp = new CreatingTrainingPlaneViewModel();
-
-                HttpContext.Session.SetObject(SessionKeyPlan, temp);
-            }
-            if (temp.Name == null)
-            {
-                TempData["ErrorMessage"] = "You should enter the name of the plan";
-
-                return RedirectToAction("Create");
-            }
-            try
-            {
-                string id = _userManager.GetUserId(User);
-                TrainingPlan trainingPlan = new TrainingPlan
+                try
                 {
-                    UserId = id,
-                    Name = temp.Name,
-                    Date = DateTime.Now
-                };
-                await _context.trainingPlans.AddAsync(trainingPlan);
-                await _context.SaveChangesAsync();
-                foreach (var set in temp.Sets)
-                {
-                    set.TrainingId = trainingPlan.Id;
+                    string id = _userManager.GetUserId(User);
+                    TrainingPlan trainingPlan = new TrainingPlan
+                    {
+                        UserId = id,
+                        Name = input.Name,
+                        Date = DateTime.Now
+                    };
+                    foreach (var set in input.Sets)
+                    {
+                        set.TrainingId = trainingPlan.Id;
+                    }
+                    await _context.trainingPlans.AddAsync(trainingPlan);
+                    await _context.sets.AddRangeAsync(input.Sets);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "The plan saved successfully.";
+                    HttpContext.Session.Remove(SessionKeyPlan);
+                    return RedirectToAction("Index");
                 }
-                await _context.sets.AddRangeAsync(temp.Sets);
-                await _context.SaveChangesAsync();
-                HttpContext.Session.Remove(SessionKeyPlan);
-            }catch (Exception e)
-            {
-                await Console.Out.WriteLineAsync("will thats fuccked shit");
+                catch (Exception e)
+                {
+                    TempData["ErrorMessage"] = "Failed to save the training plan. Please try again.";
+                    RedirectToAction("Create");
+                }
             }
-            return RedirectToAction("Index");
+            TempData["ErrorMessage"] = "No training plan found. Please create a new plan.";
+            return RedirectToAction("Create");
         }
     }
 }

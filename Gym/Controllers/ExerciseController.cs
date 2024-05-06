@@ -32,74 +32,54 @@ namespace Gym.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveExercise(List<int> exerciseIds)
         {
-            CreatingTrainingPlaneViewModel temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan);
-
-            if (temp == default)
+            if(HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan) == default)
             {
-                temp = new CreatingTrainingPlaneViewModel
-                {
-                    Name = "",
-                    Sets = new List<Set>()
-                };
+                await Console.Out.WriteLineAsync("not gooooo");
             }
+            CreatingTrainingPlaneViewModel temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan)
+                                                  ?? new CreatingTrainingPlaneViewModel();
             var exercises = await _context.Exercises.Where(x => exerciseIds.Contains(x.Id)).ToListAsync();
             foreach (var exercise in exercises)
             {
-                Set tempSet = new Set();
-                tempSet.ExerciseId = exercise.Id;
-                tempSet.Exercise = exercise;
-                tempSet.Field = new List<SetAttribute>();
-                temp.Sets.Add(tempSet);
+                temp.Sets.Add(new Set { ExerciseId = exercise.Id, Exercise = exercise, Field = new List<SetAttribute>() });
             }
             HttpContext.Session.SetObject(SessionKeyPlan,temp);
             return Json(new { success = true });
         }
-        public IActionResult DeleteExercise(int index)
+        public IActionResult DeleteExercise(int setIndex)
         {
-            CreatingTrainingPlaneViewModel temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan);
-
-            if (temp == default)
+            CreatingTrainingPlaneViewModel temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan)
+                                                  ?? new CreatingTrainingPlaneViewModel();
+            if (setIndex >= 0 && setIndex < temp.Sets.Count)
             {
-                temp = new CreatingTrainingPlaneViewModel();
-            }
-            if (index >= 0 && index < temp.Sets.Count)
-            {
-                temp.Sets.RemoveAt(index);
+                temp.Sets.RemoveAt(setIndex);
             }
             HttpContext.Session.SetObject(SessionKeyPlan, temp);
             return RedirectToAction("Create", "WorkOut");
         }
-        public IActionResult DeleteSet(int exerciseIndex, int setIndex)
+        public IActionResult DeleteSet(int setIndex, int feildSetIndex)
         {
-            CreatingTrainingPlaneViewModel temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan);
-
-            if (temp == default)
+            CreatingTrainingPlaneViewModel temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan)
+                                                  ?? new CreatingTrainingPlaneViewModel();
+            if (setIndex >= 0 && setIndex < temp.Sets.Count && feildSetIndex >= 0 && feildSetIndex < temp.Sets[setIndex].Field.Count)
             {
-                temp = new CreatingTrainingPlaneViewModel();
-            }
-            if (exerciseIndex >= 0 && exerciseIndex < temp.Sets.Count && setIndex >= 0 && setIndex < temp.Sets[exerciseIndex].Field.Count)
-            {
-                temp.Sets[exerciseIndex].Field.RemoveAt(setIndex);
+                temp.Sets[setIndex].Field.RemoveAt(feildSetIndex);
             }
             HttpContext.Session.SetObject(SessionKeyPlan, temp);
             return RedirectToAction("Create", "WorkOut");
         }
-        public  IActionResult AddSet(int exerciseIndex)
+        public  IActionResult AddSet(int setIndex)
         {
-            CreatingTrainingPlaneViewModel temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan);
-
-            if (temp == default)
-            {
-                temp = new CreatingTrainingPlaneViewModel();
-            }
-            if (exerciseIndex >= 0 && exerciseIndex < temp.Sets.Count )
+            CreatingTrainingPlaneViewModel temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan)
+                                                  ?? new CreatingTrainingPlaneViewModel();
+            if (setIndex >= 0 && setIndex < temp.Sets.Count )
             {
                 SetAttribute set = new SetAttribute { 
-                    SetId = temp.Sets[exerciseIndex].Id, 
+                    SetId = temp.Sets[setIndex].Id, 
                     Reps =0,
                     Weight=0
                 };
-                temp.Sets[exerciseIndex].Field.Add(set);
+                temp.Sets[setIndex].Field.Add(set);
             }
             HttpContext.Session.SetObject(SessionKeyPlan, temp);
             return RedirectToAction("Create", "WorkOut");

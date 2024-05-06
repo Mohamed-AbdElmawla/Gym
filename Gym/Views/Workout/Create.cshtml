@@ -70,57 +70,62 @@
     </style>
 </head>
 <body>
-        <form id="trainingPlanForm" asp-action="SaveThePlan" method="post">
-            <div class="container">
-                <h2>Training Plan Entry Form</h2>
+    <form id="trainingPlanForm" asp-action="MangeRequests" method="post">
+        <div class="container" style="height: 400px; overflow-y: auto;">
+            <h2>Training Plan Entry Form</h2>
 
-                <!-- Cancel and Save buttons -->
-                <div type="button" class="d-flex justify-content-between">
-                    <a href="/Workout" class="btn btn-danger">Cancel</a>
-                    <button type="submit" form="trainingPlanForm" class="btn btn-success">Save</button>
-                </div>
-                @if (TempData.Peek("ErrorMessage") != null)
-                {
-                    <h1 style="color:red;">@TempData["ErrorMessage"]</h1>
-                }
-                <div class="form-group">
-                    <label for="planName">Plan Name:</label>
-                    <input type="text" id="PlanName" name="Model.Name" value="@Model.Name" placeholder="Enter plan name">
-                </div>
-
-                <!-- Display existing exercise details if available -->
-                @if (Model.Sets != null && Model.Sets.Any())
-                {
-                    <h3>Existing Exercise Details:</h3>
-                    @for (var i = 0; i < Model.Sets.Count; i++)
-                    {
-                        var exerciseSet = Model.Sets[i];
-                        <div class="card">
-                            <div class="card-body">
-                                <button type="button" onclick="location.href='@Url.Action("DeleteExercise", "Exercise", new { index = i })'">Delete</button>
-                                <h4><a href="@Url.Action("ExerciseDetails", "Exercise", new { ExerciseId = exerciseSet.ExerciseId })">@exerciseSet.Exercise.Name</a></h4>
-                                <img src="@exerciseSet.Exercise.ImageUrl" alt="@exerciseSet.Exercise.Name">
-                                <ul>
-                                    <div class="sets-container">
-                                        @for (var j = 0; j < exerciseSet.Field.Count; j++)
-                                        {
-                                            var set = exerciseSet.Field[j];
-                                            <div class="set">
-                                                <strong>Set @(j + 1):</strong>
-                                                Weight: <input type="number" class="set-input" name="Weight" value="@set.Weight" step="0.5">
-                                                Reps: <input type="number" class="set-input" name="Reps" value="@set.Reps" min="0">
-                                                <button type="button" class="delete-set-button" onclick="location.href='@Url.Action("DeleteSet", "Exercise", new { exerciseIndex = i, setIndex=j })'">Delete</button>
-                                            </div>
-                                        }
-                                    </div>
-                                </ul>
-                                <button type ="button" class="add-set-button" onclick="location.href='@Url.Action("AddSet", "Exercise", new { exerciseIndex = i })'">Add Set</button>
-                            </div>
-                        </div>
-                    }
-                }
-                <button type="button" class="btn btn-primary mt-4" onclick="location.href='@Url.Action("AddExercise", "Exercise")'">Add Exercise</button>
+            <div class="d-flex justify-content-between">
+                <a href="/Workout" class="btn btn-danger">Cancel</a>
+                <button type="submit" class="btn btn-success">Save</button>
             </div>
-        </form>
+            @if (TempData.Peek("ErrorMessage") != null)
+            {
+                <h1 style="color:red;">@TempData["ErrorMessage"]</h1>
+            }
+            <div class="form-group">
+                <label for="planName">Plan Name:</label>
+                <input type="text" id="PlanName" name="input.Name" value="@Model.Name" placeholder="Enter plan name">
+            </div>
+
+            <!-- Display existing exercise details if available -->
+            @if (Model.Sets != null && Model.Sets.Any())
+            {
+                <h3>Existing Exercise Details:</h3>
+                @for (var i = 0; i < Model.Sets.Count; i++)
+                {
+                    var exerciseSet = Model.Sets[i];
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="hidden" name="setIndex" value="@i">
+
+                            <button type="submit" name="op" value="1">Delete</button>
+                            <h4><a href="@Url.Action("ExerciseDetails", "Exercise", new { ExerciseId = exerciseSet.ExerciseId })">@exerciseSet.Exercise.Name</a></h4>
+                            <img src="@exerciseSet.Exercise.ImageUrl" alt="@exerciseSet.Exercise.Name">
+                            <ul class="sets-container">
+                                @for (var j = 0; j < exerciseSet.Field.Count; j++)
+                                {
+                                    var set = exerciseSet.Field[j];
+                                    <li class="set">
+                                        <strong>Set @(j + 1):</strong>
+                                        
+                                        <input type="hidden" name="feildSetIndex" value="@j">
+                                        <input type="hidden" name="setIndex" value="@i">
+                                        <input type="number" class="set-input" name="input.Sets[@i].Field[@j].Weight" value="@set.Weight" min="0" step="0.5">
+                                        <input type="number" class="set-input" name="input.Sets[@i].Field[@j].Reps" value="@set.Reps" min="0">
+                                        <button type="submit" name="op" value="2">Delete</button>
+                                    </li>
+                                }
+                            </ul>
+                            <input type="hidden" name="setIndex" value="@i">
+                            <button type="submit" name="op" value="3">Add Set</button>
+                        </div>
+                    </div>
+                }
+            }
+            <button type="submit" name="op" value="4" class="btn btn-primary mt-4">Add Exercise</button>
+        </div>
+    </form>
 </body>
+
 </html>
+

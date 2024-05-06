@@ -183,14 +183,14 @@ namespace Gym.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("SetCount")
+                    b.Property<int>("Reps")
                         .HasColumnType("int");
 
                     b.Property<int>("SetId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Weight")
-                        .HasColumnType("int");
+                    b.Property<double>("Weight")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

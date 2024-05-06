@@ -9,7 +9,11 @@ namespace Gym.Models
         public int Id { get; set; }
         [ForeignKey("Set")]
         public int SetId { get; set; }
+        [Required(ErrorMessage = "Reps is required")]
+        [Range(0, int.MaxValue, ErrorMessage = "Reps must be a positive integer")]
         public int Reps { get; set; }
+        [Required(ErrorMessage = "Weight is required")]
+        [Range(0, double.MaxValue, ErrorMessage = "Weight must be a positive number")]
         public double Weight { get; set; }
     }
     public class Set
