@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Gym.Controllers
 {
-    //[Authorize(Roles ="Member")]
+    [Authorize]
     public class TraineeController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,17 +21,20 @@ namespace Gym.Controllers
 
         public async Task<IActionResult> Profile()
         {
-            if (_signInManager.IsSignedIn(User))
-            {
-                RedirectToAction("Index", "Home");
-            }
-            //if ()
             var user = await _userManager.GetUserAsync(User);
-            //var temp = _userManager.GetRolesAsync(user);
             var role = await _userManager.GetRolesAsync(user);
             if (role == null)
             {
                 return View();
+            }
+            return View(user);
+        }
+        public async Task<IActionResult> ShowProfile(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if(user == null)
+            {
+                return NotFound();
             }
             return View(user);
         }

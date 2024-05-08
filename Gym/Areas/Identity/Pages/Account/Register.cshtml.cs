@@ -113,14 +113,13 @@ namespace Gym.Areas.Identity.Pages.Account
             [Display(Name = "Phone")]
             [StringLength(11, MinimumLength = 11)]
             public string Phone { get; set; }
+
             [Display(Name = "Photo")]
             [PhotoValidation(5 * 1024 * 1024,new string[] {".jpg", ".png", ".jpeg"})]
             [DataType(DataType.Upload)]
             //[Required(ErrorMessage = "Photo is required.")]
             public IFormFile Photo { get; set; }
 
-            [Required(ErrorMessage = "Role is required")]
-            public string Role { get; set; }
             [Required(ErrorMessage = "First name is required.")]
             [StringLength(50, ErrorMessage = "First name must be less than 50 characters.")]
             [RegularExpression(@"^[a-zA-Z]*$", ErrorMessage = "First name must contain only alphabetic characters.")]
@@ -192,11 +191,11 @@ namespace Gym.Areas.Identity.Pages.Account
                 {
                     if (user.Gender == Gender.Male)
                     {
-                        user.ProfilePicturePath = "~/images/male.png";
+                        user.ProfilePicturePath = "/images/male.png";
                     }
                     else
                     {
-                        user.ProfilePicturePath = "~/images/female.png";
+                        user.ProfilePicturePath = "/images/female.png";
                     }
                 }
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
@@ -225,7 +224,7 @@ namespace Gym.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _userManager.AddToRoleAsync(user, Input.Role);
+                        await _userManager.AddToRoleAsync(user, "Member");
                         await _signInManager.SignInAsync(user, isPersistent: false);
 
                         return LocalRedirect(returnUrl);

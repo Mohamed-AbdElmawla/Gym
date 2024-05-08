@@ -17,8 +17,9 @@ namespace Gym.Models
         public string UserId { get; set; }
         public string? Feedback { get; set; }
         public string NationalIdPicturePath { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public Status Status { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }
