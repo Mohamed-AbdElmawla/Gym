@@ -17,6 +17,7 @@ namespace Gym.Data
         public DbSet<Set> sets { get; set; }
         public DbSet<Subscription> subscriptions { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<CoachEnrollment> coachEnrollments { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -42,6 +43,13 @@ namespace Gym.Data
                .HasForeignKey(e => e.ExerciseId)
                .IsRequired()
                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ApplicationUser>()
+               .HasMany<CoachEnrollment>()
+               .WithOne(e => e.User)
+               .HasForeignKey(e => e.UserId)
+               .IsRequired()
+               .OnDelete(DeleteBehavior.ClientCascade);
             /*
             modelBuilder.Entity<Category>()
                .HasMany<Exercise>()

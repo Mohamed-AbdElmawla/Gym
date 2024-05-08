@@ -178,7 +178,8 @@ namespace Gym.Areas.Identity.Pages.Account
                         {
                             Input.Photo.CopyTo(fileStream);
                         }
-                        user.ProfilePicturePath = Path.Combine("images", newfilename);
+                        user.ProfilePicturePath = Path.Combine("\\images", newfilename);
+                        TempData["ImagePath"] = user.ProfilePicturePath;
 
                     }
                     catch (Exception ex)
@@ -191,11 +192,11 @@ namespace Gym.Areas.Identity.Pages.Account
                 {
                     if (user.Gender == Gender.Male)
                     {
-                        user.ProfilePicturePath = "/images/male.png";
+                        user.ProfilePicturePath = "~/images/male.png";
                     }
                     else
                     {
-                        user.ProfilePicturePath = "/images/female.png";
+                        user.ProfilePicturePath = "~/images/female.png";
                     }
                 }
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
@@ -226,7 +227,7 @@ namespace Gym.Areas.Identity.Pages.Account
                     {
                         await _userManager.AddToRoleAsync(user, Input.Role);
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        ViewData["ImagePath"] = user.ProfilePicturePath;
+
                         return LocalRedirect(returnUrl);
                     }
                 }

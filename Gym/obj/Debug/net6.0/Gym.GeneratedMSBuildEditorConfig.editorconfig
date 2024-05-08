@@ -178,6 +178,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/faculty materials/level 3/Second term/Project/.net 2/Gym/Gym/Views/CoachEnrollment/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29hY2hFbnJvbGxtZW50XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/faculty materials/level 3/Second term/Project/.net 2/Gym/Gym/Views/CoachEnrollment/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29hY2hFbnJvbGxtZW50XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/faculty materials/level 3/Second term/Project/.net 2/Gym/Gym/Views/Exercise/AddExercise.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhlcmNpc2VcQWRkRXhlcmNpc2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

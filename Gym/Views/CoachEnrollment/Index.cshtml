@@ -1,0 +1,18 @@
+﻿@model List<CoachEnrollment> 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
+<a> Welcome to Enrollments </a>
+<br />
+<br />
+@if(Model.Count==0){
+    <a>
+        You hasn't Enroll as a Coach 
+    </a>
+}
+@if (!User.IsInRole("Coach"))
+{
+    <div class="mb-1 text-white">
+        <a asp-controller="CoachEnrollment" asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> New Enrollment
+        </a>
+    </div>
+}

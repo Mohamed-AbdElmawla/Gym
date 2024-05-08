@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9saF9a53UTdm4mNF+IUaE5423J9Oodq2LXGCxCbg6BQ=",
+  "Hash": "AF2eW9EiOFyvX1pH9Kj51/Mn0+2Br/n8c9nITD0m8I8=",
   "Source": "Gym",
   "BasePath": "_content/Gym",
   "Mode": "Default",
@@ -1252,6 +1252,25 @@
       "OriginalItemSpec": "wwwroot\\images\\75b1cd1b-311a-4793-bd12-d37ea697e6ee.png"
     },
     {
+      "Identity": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\images\\a4c931c1-e0d8-4686-a712-6850dc8a23f3.png",
+      "SourceId": "Gym",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\",
+      "BasePath": "_content/Gym",
+      "RelativePath": "images/a4c931c1-e0d8-4686-a712-6850dc8a23f3.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\a4c931c1-e0d8-4686-a712-6850dc8a23f3.png"
+    },
+    {
       "Identity": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\images\\a71f8bc3-60f3-459b-b244-c62ff1072c7c.png",
       "SourceId": "Gym",
       "SourceType": "Discovered",
@@ -1307,6 +1326,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\e526aad1-9dea-4101-830d-7e42a949c7b1.png"
+    },
+    {
+      "Identity": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\images\\ec2aba2a-3369-411d-a817-51b67cdbfb47.png",
+      "SourceId": "Gym",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\",
+      "BasePath": "_content/Gym",
+      "RelativePath": "images/ec2aba2a-3369-411d-a817-51b67cdbfb47.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\ec2aba2a-3369-411d-a817-51b67cdbfb47.png"
     },
     {
       "Identity": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\images\\female.png",

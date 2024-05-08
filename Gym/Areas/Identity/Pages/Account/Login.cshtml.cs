@@ -122,7 +122,7 @@ namespace Gym.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User logged in.");
                     var user = await _userManager.FindByEmailAsync(Input.Email);
-                    ViewData["ImagePath"] = user.ProfilePicturePath;
+                    TempData["ImagePath"] = user.ProfilePicturePath;
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
