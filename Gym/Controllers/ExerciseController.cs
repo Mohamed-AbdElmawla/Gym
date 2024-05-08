@@ -1,11 +1,13 @@
 ﻿using Gym.Data;
 using Gym.Models;
 using Gym.View_Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gym.Controllers
 {
+    [Authorize]
     public class ExerciseController : Controller
     {
         private readonly ApplicationDbContext _context;

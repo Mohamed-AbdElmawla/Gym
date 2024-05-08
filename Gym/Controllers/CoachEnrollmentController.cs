@@ -4,9 +4,10 @@ using Gym.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Authorization;
 namespace Gym.Controllers
 {
+    [Authorize(Roles = "Member")]
     public class CoachEnrollmentController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -42,7 +43,7 @@ namespace Gym.Controllers
                     try
                     {
                         // Get the wwwroot path
-                        string uploadPath = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+                        string uploadPath = Path.Combine(_hostingEnvironment.WebRootPath, "enrollments");
                         Directory.CreateDirectory(uploadPath);
                         // Generate a unique filename for the uploaded file
                         string newfilename = $"{Guid.NewGuid().ToString()}{Path.GetExtension(input.Photo.FileName)}";
@@ -76,7 +77,8 @@ namespace Gym.Controllers
                     TempData["ErrorMessage"] = "You Should Enter a valid National ID Picture";
                 }
             }
-            return View();
+            TempData["SuccessMessage"] = "Form submitted successfully!";
+            return RedirectToAction("Index");
         }
     }
 }

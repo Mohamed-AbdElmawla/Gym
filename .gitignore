@@ -1,1 +1,6 @@
 Gym/wwwroot/images
+Gym/.vs
+Gym/bin
+Gym/obj
+Gym/appsettings.Development.json
+Gym/appsettings.json
