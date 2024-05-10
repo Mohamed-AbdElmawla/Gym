@@ -24,7 +24,7 @@ namespace Gym.Controllers
         public async Task<IActionResult> Index()
         {
             string id = _userManager.GetUserId(User);
-            var userEnrollments = await _context.coachEnrollments.Where(e => e.UserId == id).ToListAsync();
+            var userEnrollments = await _context.CoachEnrollments.Where(e => e.UserId == id).ToListAsync();
             return View(userEnrollments);
         }
         [HttpGet]
@@ -61,10 +61,11 @@ namespace Gym.Controllers
                             NationalIdPicturePath = Path.Combine("\\enrollments", newfilename)
                         
                         };
-                        await _context.coachEnrollments.AddAsync(coachEnrollment);
+                        await _context.CoachEnrollments.AddAsync(coachEnrollment);
                         await _context.SaveChangesAsync();
-                    //user.ProfilePicturePath = Path.Combine("\\images", newfilename);
-
+                        TempData["SuccessMessage"] = "Form submitted successfully!";
+                        return RedirectToAction("Index");
+                        //user.ProfilePicturePath = Path.Combine("\\images", newfilename);
                     }
                     catch (Exception ex)
                     {
@@ -72,13 +73,10 @@ namespace Gym.Controllers
                         return StatusCode(StatusCodes.Status500InternalServerError, "Error uploading file: " + ex.Message);
                     }
                 }
-                else
-                {
-                    TempData["ErrorMessage"] = "You Should Enter a valid National ID Picture";
-                }
             }
-            TempData["SuccessMessage"] = "Form submitted successfully!";
-            return RedirectToAction("Index");
+            TempData["ErrorMessage"] = "You Should Enter a valid National ID Picture";
+            return RedirectToAction("Create");
+
         }
     }
 }

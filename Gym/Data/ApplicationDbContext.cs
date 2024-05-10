@@ -12,12 +12,14 @@ namespace Gym.Data
 
         }
 
-        public DbSet<TrainingPlan> trainingPlans { get; set; }
+        public DbSet<TrainingPlan> TrainingPlans { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
-        public DbSet<Set> sets { get; set; }
-        public DbSet<Subscription> subscriptions { get; set; }
+        public DbSet<Set> Sets { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<CoachEnrollment> coachEnrollments { get; set; }
+        public DbSet<CoachEnrollment> CoachEnrollments { get; set; }
+        public DbSet<Message> Messages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -28,15 +30,24 @@ namespace Gym.Data
                .HasForeignKey(e => e.UserId)
                .IsRequired()
                .OnDelete(DeleteBehavior.ClientCascade);
-
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany<Message>()
+                .WithOne(e => e.Receiver)
+                .HasForeignKey(e => e.ReceiverId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.ClientCascade);
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany<Message>()
+                .WithOne(e => e.Sender)
+                .HasForeignKey(e => e.SenderId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.ClientCascade);
             modelBuilder.Entity<TrainingPlan>()
                .HasMany<Set>()
                .WithOne(e => e.TrainingPlan)
                .HasForeignKey(e => e.TrainingId)
                .IsRequired()
                .OnDelete(DeleteBehavior.ClientCascade);
-
-
             modelBuilder.Entity<Exercise>()
                .HasMany<Set>()
                .WithOne(e => e.Exercise)

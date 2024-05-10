@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GymApp\\Gym\\Gym.csproj": {}
+    "D:\\GymApp\\Gym\\Gym\\Gym.csproj": {}
   },
   "projects": {
-    "D:\\GymApp\\Gym\\Gym.csproj": {
+    "D:\\GymApp\\Gym\\Gym\\Gym.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GymApp\\Gym\\Gym.csproj",
+        "projectUniqueName": "D:\\GymApp\\Gym\\Gym\\Gym.csproj",
         "projectName": "Gym",
-        "projectPath": "D:\\GymApp\\Gym\\Gym.csproj",
+        "projectPath": "D:\\GymApp\\Gym\\Gym\\Gym.csproj",
         "packagesPath": "C:\\Users\\Abd ELmawla\\.nuget\\packages\\",
-        "outputPath": "D:\\GymApp\\Gym\\obj\\",
+        "outputPath": "D:\\GymApp\\Gym\\Gym\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Abd ELmawla\\AppData\\Roaming\\NuGet\\NuGet.Config",

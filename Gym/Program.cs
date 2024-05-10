@@ -1,4 +1,5 @@
 using Gym.Data;
+using Gym.Hubs;
 using Gym.Models;
 using Gym.Services;
 using Microsoft.AspNetCore.Identity;
@@ -19,10 +20,10 @@ namespace Gym
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             builder.Services.AddDistributedMemoryCache();
-
+            builder.Services.AddSignalR();
             builder.Services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromSeconds(20 * 60);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
@@ -38,7 +39,7 @@ namespace Gym
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddScoped<INotificationService, NotificationService>();
             //builder.Services.AddTransient<IEmailSender, EmailSender>();
             builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
@@ -68,6 +69,10 @@ namespace Gym
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<NotificationHub>("/notificationHub");
+            });
             using (var scope = app.Services.CreateScope())
             {
                 var roleManger = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -103,7 +108,6 @@ namespace Gym
                     admin.EmailConfirmed = true;
                     await userManger.CreateAsync(admin, password);
                     await userManger.AddToRoleAsync(admin, "Admin");
-
                 }
             }
 

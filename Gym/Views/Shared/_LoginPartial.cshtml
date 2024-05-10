@@ -1,33 +1,55 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager 
-@*// why register and login not working when it's working *@
+@inject UserManager<ApplicationUser> UserManager
+<style>
+    body {
+        background-color: #f8f9fa;
+        padding-top: 70px;
+    }
 
+    .navbar-brand {
+        font-weight: bold;
+    }
+
+    .nav-item {
+        margin-right: 15px;
+    }
+
+    .nav-link {
+        color: #343a40;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+        .nav-link:hover {
+            color: #007bff;
+        }
+</style>
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    var user = await UserManager.GetUserAsync(User);
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.GetUserAsync(User);
         @if (!User.IsInRole("Admin"))
         {
             <li class="nav-item">
                 <a asp-controller="Trainee" asp-action="Profile">
-                    <img src="@user.ProfilePicturePath" alt="Profile Picture" class="nav-link text-dark" style="width: 50px; height: 50px; border-radius: 50%">
+                    <img src="@user.ProfilePicturePath" alt="Profile Picture" class="nav-link profile-picture" style="width: 50px; height: 50px; border-radius: 50%">
                 </a>
             </li>
         }
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+        <li class="nav-item">
+            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+                <button type="submit" class="nav-link">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
 </ul>

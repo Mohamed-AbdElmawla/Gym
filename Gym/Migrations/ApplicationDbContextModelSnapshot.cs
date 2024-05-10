@@ -46,14 +46,16 @@ namespace Gym.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -156,7 +158,7 @@ namespace Gym.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("coachEnrollments");
+                    b.ToTable("CoachEnrollments");
                 });
 
             modelBuilder.Entity("Gym.Models.Exercise", b =>
@@ -184,6 +186,41 @@ namespace Gym.Migrations
                     b.ToTable("Exercises");
                 });
 
+            modelBuilder.Entity("Gym.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MessageBody")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("MessageSentAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ReceiverId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SenderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("Gym.Models.Set", b =>
                 {
                     b.Property<int>("Id")
@@ -204,7 +241,7 @@ namespace Gym.Migrations
 
                     b.HasIndex("TrainingId");
 
-                    b.ToTable("sets");
+                    b.ToTable("Sets");
                 });
 
             modelBuilder.Entity("Gym.Models.SetAttribute", b =>
@@ -251,7 +288,7 @@ namespace Gym.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("subscriptions");
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("Gym.Models.TrainingPlan", b =>
@@ -277,7 +314,7 @@ namespace Gym.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("trainingPlans");
+                    b.ToTable("TrainingPlans");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -426,6 +463,25 @@ namespace Gym.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Gym.Models.Message", b =>
+                {
+                    b.HasOne("Gym.Models.ApplicationUser", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("Gym.Models.ApplicationUser", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("Gym.Models.Set", b =>

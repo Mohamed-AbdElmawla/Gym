@@ -4,6 +4,9 @@ using Gym.Data;
 using Microsoft.EntityFrameworkCore;
 using Gym.Models;
 using Microsoft.AspNetCore.Identity;
+using Gym.Services;
+using Gym.Hubs;
+using Microsoft.AspNetCore.SignalR;
 namespace Gym.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -11,14 +14,19 @@ namespace Gym.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        public AdminController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        private readonly INotificationService _notificationService;
+        private readonly IHubContext<NotificationHub> _hubContext;
+        public AdminController(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
+            INotificationService notificationService, IHubContext<NotificationHub> hubContext)
         {
             _context = context;
             _userManager = userManager;
+            _notificationService = notificationService;
+            _hubContext = hubContext;
         }
         public async Task<IActionResult> Index(Models.Status? status, DateTime? startDate, DateTime? endDate, int page = 1, int pageSize = 10)
         {
-            IQueryable<CoachEnrollment> enrollmentsQuery = _context.coachEnrollments;
+            IQueryable<CoachEnrollment> enrollmentsQuery = _context.CoachEnrollments;
 
             if (status != null)
             {
@@ -58,7 +66,7 @@ namespace Gym.Controllers
         [HttpGet]
         public async Task<IActionResult> ShowEnrollmentDetails(int enrollmentId)
         {
-            var enrollment = await _context.coachEnrollments.FindAsync(enrollmentId);
+            var enrollment = await _context.CoachEnrollments.FindAsync(enrollmentId);
 
             if (enrollment == null)
             {
@@ -74,26 +82,29 @@ namespace Gym.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateEnrollmentStatus(int enrollmentId, string status, string feedback)
         {
-            var enrollment =await _context.coachEnrollments.FindAsync(enrollmentId);
+            var enrollment =await _context.CoachEnrollments.FindAsync(enrollmentId);
             if (enrollment == null)
             {
                 return NotFound();
             }
+            string senderId = _userManager.GetUserId(User);
+            var user = await _userManager.FindByIdAsync(senderId);
             if (enrollment.Status == Gym.Models.Status.Pending)
             {
                 if (status == "Accepted")
                 {
+                    await _notificationService.SendEnrollmentAccepted(enrollment.UserId, senderId);
                     enrollment.Status = Gym.Models.Status.Accepted;
                 }
                 else if (status == "Rejected")
                 {
+                    await _notificationService.SendEnrollmentRejected(enrollment.UserId, senderId, feedback);
                     enrollment.Status = Gym.Models.Status.Rejected;
                     enrollment.Feedback = feedback;
                 }
-
-                _context.SaveChanges();
+               await _context.SaveChangesAsync();
             }
-
+            await _hubContext.Clients.User(enrollment.UserId).SendAsync("ReceiveNotification", $"You Have a new Notification from {user.FirstName}");
             return RedirectToAction("Index");
         }
     }

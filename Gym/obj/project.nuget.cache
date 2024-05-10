@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "S77Gh/pnRnOiyEWRSOZSoeChgh7n4Pr+MExDCES4xBnldNIt93Blful/u8e47LjAI8O+hCX9isnLifFIXn2wlw==",
+  "dgSpecHash": "ocY/wG7+2RJ6qqTAUviVKiLLRjgN4fArVmmj3RdFp0pwbMuY8W5J1W/LcmP7ZqoJLkgvhhzswmlnM/vCI5t/5Q==",
   "success": true,
-  "projectFilePath": "D:\\GymApp\\Gym\\Gym.csproj",
+  "projectFilePath": "D:\\GymApp\\Gym\\Gym\\Gym.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Abd ELmawla\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\Abd ELmawla\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

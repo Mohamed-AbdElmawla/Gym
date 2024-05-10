@@ -13,9 +13,13 @@ namespace Gym.Models
     {
         [PersonalData]
         public DateTime DOB { get; set; }
+        [Required]
+        [StringLength(50)]
         [PersonalData]
         public string FirstName { get; set; }
 
+        [Required]
+        [StringLength(50)]
         [PersonalData]
         public string LastName { get; set; }
         [PersonalData]

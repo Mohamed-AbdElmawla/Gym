@@ -114,3 +114,18 @@
 
     </div>
 </div>
+
+
+<script>
+
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/notificationHub") // Use the URL where your SignalR hub is available
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    connection.start().catch(err => console.error(err.toString()));
+
+    connection.on("ReceiveNotification", function (message) {
+        alert(message); // Handle the received notification, e.g., display an alert
+    });
+</script>

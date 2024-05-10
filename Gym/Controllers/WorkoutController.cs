@@ -26,7 +26,7 @@ namespace Gym.Controllers
         {
             HttpContext.Session.Remove(SessionKeyPlan);
             string id = _userManager.GetUserId(User);
-            var trainingPlans = await _context.trainingPlans.Where(x => x.UserId == id).ToListAsync();
+            var trainingPlans = await _context.TrainingPlans.Where(x => x.UserId == id).ToListAsync();
             return View(trainingPlans);
         }
         [HttpGet]
@@ -68,13 +68,13 @@ namespace Gym.Controllers
                     Name = temp.Name,
                     Date = DateTime.Now
                 };
-                await _context.trainingPlans.AddAsync(trainingPlan);
+                await _context.TrainingPlans.AddAsync(trainingPlan);
                 await _context.SaveChangesAsync();
                 foreach (var set in temp.Sets)
                 {
                     set.TrainingId = trainingPlan.Id;
                 }
-                await _context.sets.AddRangeAsync(temp.Sets);
+                await _context.Sets.AddRangeAsync(temp.Sets);
                 await _context.SaveChangesAsync();
                 HttpContext.Session.Remove(SessionKeyPlan);
             }catch (Exception e)
