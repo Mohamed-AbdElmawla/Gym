@@ -56,7 +56,7 @@ namespace Gym.Controllers
             HttpContext.Session.SetObject(SessionKeyPlan,temp);
             return Json(new { success = true });
         }
-        public IActionResult DeleteExercise(int index)
+        public IActionResult DeleteExercise(int exerciseIndex)
         {
             CreatingTrainingPlaneViewModel temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan);
 
@@ -64,14 +64,14 @@ namespace Gym.Controllers
             {
                 temp = new CreatingTrainingPlaneViewModel();
             }
-            if (index >= 0 && index < temp.Sets.Count)
+            if (exerciseIndex >= 0 && exerciseIndex < temp.Sets.Count)
             {
-                temp.Sets.RemoveAt(index);
+                temp.Sets.RemoveAt(exerciseIndex);
             }
             HttpContext.Session.SetObject(SessionKeyPlan, temp);
             return RedirectToAction("Create", "WorkOut");
         }
-        public IActionResult DeleteSet(int exerciseIndex, int setIndex)
+        public IActionResult DeleteSet(int exerciseIndex, int setFeildIndex)
         {
             CreatingTrainingPlaneViewModel temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan);
 
@@ -79,9 +79,9 @@ namespace Gym.Controllers
             {
                 temp = new CreatingTrainingPlaneViewModel();
             }
-            if (exerciseIndex >= 0 && exerciseIndex < temp.Sets.Count && setIndex >= 0 && setIndex < temp.Sets[exerciseIndex].Field.Count)
+            if (exerciseIndex >= 0 && exerciseIndex < temp.Sets.Count && setFeildIndex >= 0 && setFeildIndex < temp.Sets[exerciseIndex].Field.Count)
             {
-                temp.Sets[exerciseIndex].Field.RemoveAt(setIndex);
+                temp.Sets[exerciseIndex].Field.RemoveAt(setFeildIndex);
             }
             HttpContext.Session.SetObject(SessionKeyPlan, temp);
             return RedirectToAction("Create", "WorkOut");

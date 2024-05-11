@@ -9,14 +9,25 @@ using System.Linq;
 using System.Collections.Specialized;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using Gym.Migrations;
 namespace Gym.Controllers
 {
     [Authorize]
     public class WorkoutController : Controller
     {
+        public class inputModel
+        {
+            public int? operation { get; set; }
+            public CreatingTrainingPlaneViewModel exercises { get; set; }
+            public int? exerciseIndex { get; set; }
+            public int? setFeildIndex { get; set; }
+
+        };
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         public const string SessionKeyPlan = "_TrainingPlan";
+        [BindProperty]
+        public inputModel input { get; set; }
         public WorkoutController(ApplicationDbContext context,UserManager<ApplicationUser> userManager)
         {
             _context = context;
@@ -43,20 +54,60 @@ namespace Gym.Controllers
             return View(temp);
         }
         [HttpPost]
+        public IActionResult ManageReqeusts()
+        {
+            if (input.exercises != null)
+            {
+                HttpContext.Session.SetObject(SessionKeyPlan, input.exercises);
+            }
+            
+            if(input.operation==null)
+            {
+                TempData["ErrorMessage"] = "Unexpected error (operation is null),please try again";
+                return RedirectToAction("Create");
+            }
+            if(input.operation == 0) {
+                if(input.exerciseIndex == null)
+                {
+                    TempData["ErrorMessage"] = "Unexpected error (exerciseIndex is null),please try again";
+                    return RedirectToAction("Create");
+                }
+                return RedirectToAction("DeleteExercise", "Exercise", new { exerciseIndex = input.exerciseIndex });
+            }else if(input.operation == 1)
+            {
+                if (input.exerciseIndex == null)
+                {
+                    TempData["ErrorMessage"] = "Unexpected error (exerciseIndex is null),please try again";
+                    return RedirectToAction("Create");
+                }
+                return RedirectToAction("AddSet", "Exercise", new { exerciseIndex = input.exerciseIndex });
+            }else if(input.operation == 2)
+            {
+                if (input.exerciseIndex == null|| input.setFeildIndex == null)
+                {
+                    TempData["ErrorMessage"] = "Unexpected error (exerciseIndex is null or setFeildIndex is null),please try again";
+                    return RedirectToAction("Create");
+                }
+                return RedirectToAction("DeleteSet", "Exercise", new { exerciseIndex = input.exerciseIndex, setFeildIndex = input.setFeildIndex });
+            }else if(input.operation == 3)
+            {
+                return RedirectToAction("AddExercise", "Exercise");
+            }else if(input.operation == 4)
+            {
+                if (ModelState.IsValid)
+                {
+                    RedirectToAction("SaveThePlan");
+                }
+            }
+            return NotFound();
+        }
         public async Task<IActionResult> SaveThePlan()
         {
             var temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan);
 
             if (temp == default)
             {
-                temp = new CreatingTrainingPlaneViewModel();
-
-                HttpContext.Session.SetObject(SessionKeyPlan, temp);
-            }
-            if (temp.Name == null)
-            {
-                TempData["ErrorMessage"] = "You should enter the name of the plan";
-
+                TempData["ErrorMessage"] = "There is no plan to save";
                 return RedirectToAction("Create");
             }
             try
