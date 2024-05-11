@@ -30,24 +30,28 @@ namespace Gym.Data
                .HasForeignKey(e => e.UserId)
                .IsRequired()
                .OnDelete(DeleteBehavior.ClientCascade);
+
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany<Message>()
                 .WithOne(e => e.Receiver)
                 .HasForeignKey(e => e.ReceiverId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.ClientCascade);
+
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany<Message>()
                 .WithOne(e => e.Sender)
                 .HasForeignKey(e => e.SenderId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.ClientCascade);
+
             modelBuilder.Entity<TrainingPlan>()
                .HasMany<Set>()
                .WithOne(e => e.TrainingPlan)
                .HasForeignKey(e => e.TrainingId)
                .IsRequired()
                .OnDelete(DeleteBehavior.ClientCascade);
+
             modelBuilder.Entity<Exercise>()
                .HasMany<Set>()
                .WithOne(e => e.Exercise)
@@ -61,6 +65,28 @@ namespace Gym.Data
                .HasForeignKey(e => e.UserId)
                .IsRequired()
                .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder.Entity<ApplicationUser>()
+               .HasMany<Subscription>()
+               .WithOne(e => e.Coach)
+               .HasForeignKey(e => e.CoachId)
+               .IsRequired()
+               .OnDelete(DeleteBehavior.ClientCascade);
+
+            // many to many relationship with the user and subscriptions
+            modelBuilder.Entity<SubscriptionUser>()
+                .HasKey(e => e.Id);
+
+            modelBuilder.Entity<SubscriptionUser>()
+                .HasOne(e => e.Subscription)
+                .WithMany(e => e.SubscriptionUsers)
+                .HasForeignKey(e => e.SubscriptionId);
+
+            modelBuilder.Entity<SubscriptionUser>()
+                .HasOne(e => e.User)
+                .WithMany(e => e.SubscriptionUsers)
+                .HasForeignKey(e => e.UserId);
+
             /*
             modelBuilder.Entity<Category>()
                .HasMany<Exercise>()

@@ -65,7 +65,6 @@ namespace Gym.Controllers
                         await _context.SaveChangesAsync();
                         TempData["SuccessMessage"] = "Form submitted successfully!";
                         return RedirectToAction("Index");
-                        //user.ProfilePicturePath = Path.Combine("\\images", newfilename);
                     }
                     catch (Exception ex)
                     {

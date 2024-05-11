@@ -93,8 +93,14 @@ namespace Gym.Controllers
             {
                 if (status == "Accepted")
                 {
-                    await _notificationService.SendEnrollmentAccepted(enrollment.UserId, senderId);
+                    List<string> roles = new List<string>
+                    {
+                        "Member"
+                    };
+                    await _userManager.RemoveFromRolesAsync(enrollment.User, roles);
+                    await _userManager.AddToRoleAsync(enrollment.User, "Coach");
                     enrollment.Status = Gym.Models.Status.Accepted;
+                    await _notificationService.SendEnrollmentAccepted(enrollment.UserId, senderId);
                 }
                 else if (status == "Rejected")
                 {

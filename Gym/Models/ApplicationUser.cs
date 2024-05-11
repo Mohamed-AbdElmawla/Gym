@@ -23,8 +23,10 @@ namespace Gym.Models
         [PersonalData]
         public string LastName { get; set; }
         [PersonalData]
+        public int? SubscriptionId { get; set; }
         public Gender Gender { get; set; }
         [PersonalData]
         public string? ProfilePicturePath { get; set; }
+        public ICollection<SubscriptionUser> SubscriptionUsers { get; set; }
     }
 }

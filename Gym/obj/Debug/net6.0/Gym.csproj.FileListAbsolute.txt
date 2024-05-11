@@ -1442,3 +1442,4 @@ D:\GymApp\Gym\Gym\obj\Debug\net6.0\Gym.pdb
 D:\GymApp\Gym\Gym\obj\Debug\net6.0\Gym.genruntimeconfig.cache
 D:\GymApp\Gym\Gym\obj\Debug\net6.0\ref\Gym.dll
 D:\GymApp\Gym\Gym\bin\Debug\net6.0\libman.json
+D:\faculty materials\level 3\Second term\Project\.net 2\Gym\Gym\bin\Debug\net6.0\libman.json

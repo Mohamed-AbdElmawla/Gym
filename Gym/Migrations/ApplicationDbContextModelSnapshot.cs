@@ -86,6 +86,9 @@ namespace Gym.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("SubscriptionId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -276,6 +279,10 @@ namespace Gym.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("CoachId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -283,12 +290,41 @@ namespace Gym.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CoachId");
+
                     b.ToTable("Subscriptions");
+                });
+
+            modelBuilder.Entity("Gym.Models.SubscriptionUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SubscriptionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubscriptionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SubscriptionUser");
                 });
 
             modelBuilder.Entity("Gym.Models.TrainingPlan", b =>
@@ -512,6 +548,36 @@ namespace Gym.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Gym.Models.Subscription", b =>
+                {
+                    b.HasOne("Gym.Models.ApplicationUser", "Coach")
+                        .WithMany()
+                        .HasForeignKey("CoachId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Coach");
+                });
+
+            modelBuilder.Entity("Gym.Models.SubscriptionUser", b =>
+                {
+                    b.HasOne("Gym.Models.Subscription", "Subscription")
+                        .WithMany("SubscriptionUsers")
+                        .HasForeignKey("SubscriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Gym.Models.ApplicationUser", "User")
+                        .WithMany("SubscriptionUsers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Subscription");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Gym.Models.TrainingPlan", b =>
                 {
                     b.HasOne("Gym.Models.ApplicationUser", "User")
@@ -574,9 +640,19 @@ namespace Gym.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Gym.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("SubscriptionUsers");
+                });
+
             modelBuilder.Entity("Gym.Models.Set", b =>
                 {
                     b.Navigation("Field");
+                });
+
+            modelBuilder.Entity("Gym.Models.Subscription", b =>
+                {
+                    b.Navigation("SubscriptionUsers");
                 });
 #pragma warning restore 612, 618
         }
