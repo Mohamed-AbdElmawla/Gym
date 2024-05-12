@@ -51,21 +51,30 @@ namespace Gym.Controllers
         }
         public async Task<IActionResult> Delete(int trainingPlanId)
         {
-            var trainingPlan = _context.TrainingPlans.Find(trainingPlanId);
+            var trainingPlan = await _context.TrainingPlans.FindAsync(trainingPlanId);
             if (trainingPlan == null)
             {
                 TempData["ErrorMessage"] = "The plan doesn't exits"; ;
                 return RedirectToAction("Index");
             }
-
+            var sets = await _context.Sets.Include(s => s.Field).Where(x => x.TrainingId == trainingPlanId).ToListAsync();
             try
             {
+                foreach (var set in sets)
+                {
+                    _context.SetAttributes.RemoveRange(set.Field);
+                }
+                _context.Sets.RemoveRange(sets);
                 _context.TrainingPlans.Remove(trainingPlan);
 
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                Console.WriteLine($"Exception type: {ex.GetType().FullName}");
+
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 TempData["ErrorMessage"] = "Error deleting the training plan";
                 return RedirectToAction("Index");
             }

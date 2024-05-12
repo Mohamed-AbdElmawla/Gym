@@ -32,28 +32,12 @@
     <div id="SuccessMessage" class="alert alert-success">
         @SuccessMessage
     </div>
-
-    <script>
-        $(document).ready(function () {
-            setTimeout(function () {
-                $('#SuccessMessage').fadeOut('slow');
-            }, 3000); // 3000 milliseconds = 3 seconds
-        });
-    </script>
 }
 @if (ErrorMessage != null)
 {
     <div id="ErrorMessage" class="alert alert-danger">
         @ErrorMessage
     </div>
-
-    <script>
-        $(document).ready(function () {
-            setTimeout(function () {
-                $('#ErrorMessage').fadeOut('slow');
-            }, 3000); // 3000 milliseconds = 3 seconds
-        });
-    </script>
 }
 <div class="container mt-4">
     <h2>Training Plans</h2>
@@ -88,5 +72,16 @@
                 window.location.href = "/Workout/Delete?trainingPlanId=" + trainingPlanId;
             }
         }
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#SuccessMessage').fadeOut('slow');
+            }, 3000); // 3000 milliseconds = 3 seconds
+        });
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#ErrorMessage').fadeOut('slow');
+            }, 3000); // 3000 milliseconds = 3 seconds
+        });
     </script>
+        
 }
