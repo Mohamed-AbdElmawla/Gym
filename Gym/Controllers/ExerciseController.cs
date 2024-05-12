@@ -38,19 +38,14 @@ namespace Gym.Controllers
 
             if (temp == default)
             {
-                temp = new CreatingTrainingPlaneViewModel
-                {
-                    Name = "",
-                    Sets = new List<Set>()
-                };
+                temp = new CreatingTrainingPlaneViewModel();
             }
             var exercises = await _context.Exercises.Where(x => exerciseIds.Contains(x.Id)).ToListAsync();
             foreach (var exercise in exercises)
             {
-                Set tempSet = new Set();
+                SetViewModel tempSet = new SetViewModel();
                 tempSet.ExerciseId = exercise.Id;
                 tempSet.Exercise = exercise;
-                tempSet.Field = new List<SetAttribute>();
                 temp.Sets.Add(tempSet);
             }
             HttpContext.Session.SetObject(SessionKeyPlan,temp);
@@ -96,11 +91,7 @@ namespace Gym.Controllers
             }
             if (exerciseIndex >= 0 && exerciseIndex < temp.Sets.Count )
             {
-                SetAttribute set = new SetAttribute { 
-                    SetId = temp.Sets[exerciseIndex].Id, 
-                    Reps =0,
-                    Weight=0
-                };
+                SetAttributeViewModel set = new SetAttributeViewModel();
                 temp.Sets[exerciseIndex].Field.Add(set);
             }
             HttpContext.Session.SetObject(SessionKeyPlan, temp);

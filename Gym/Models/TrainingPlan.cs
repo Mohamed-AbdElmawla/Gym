@@ -11,43 +11,8 @@ namespace Gym.Models
         [ForeignKey("ApplicationUser")]
         public string UserId {  get; set; }
         public string Name { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public virtual ApplicationUser User { get; set; }
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

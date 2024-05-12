@@ -28,7 +28,7 @@ namespace Gym.Controllers
         public const string SessionKeyPlan = "_TrainingPlan";
         [BindProperty]
         public inputModel input { get; set; }
-        public WorkoutController(ApplicationDbContext context,UserManager<ApplicationUser> userManager)
+        public WorkoutController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -40,8 +40,40 @@ namespace Gym.Controllers
             var trainingPlans = await _context.TrainingPlans.Where(x => x.UserId == id).ToListAsync();
             return View(trainingPlans);
         }
+        public async Task<IActionResult> Details(int trainingPlanId)
+        {
+            TrainingPlanViewModel model = new TrainingPlanViewModel();
+            TrainingPlan temp = await _context.TrainingPlans.FirstOrDefaultAsync(t => t.Id == trainingPlanId);
+            model.Name = temp.Name;
+            model.Date = temp.Date;
+            model.Sets = await _context.Sets.Where(x=>x.TrainingId == trainingPlanId).Include(x=>x.Field).Include(x=>x.Exercise).ToListAsync();
+            return View(model);
+        }
+        public async Task<IActionResult> Delete(int trainingPlanId)
+        {
+            var trainingPlan = _context.TrainingPlans.Find(trainingPlanId);
+            if (trainingPlan == null)
+            {
+                TempData["ErrorMessage"] = "The plan doesn't exits"; ;
+                return RedirectToAction("Index");
+            }
+
+            try
+            {
+                _context.TrainingPlans.Remove(trainingPlan);
+
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                TempData["ErrorMessage"] = "Error deleting the training plan";
+                return RedirectToAction("Index");
+            }
+            TempData["SuccessMessage"] = "Operation succeeded!";
+            return RedirectToAction("Index");
+        }
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var temp = HttpContext.Session.GetObject<CreatingTrainingPlaneViewModel>(SessionKeyPlan);
 
@@ -50,6 +82,10 @@ namespace Gym.Controllers
                 temp = new CreatingTrainingPlaneViewModel();
 
                 HttpContext.Session.SetObject(SessionKeyPlan, temp);
+            }
+            foreach (var set in temp.Sets)
+            {
+                set.Exercise = await _context.Exercises.FirstOrDefaultAsync(e => e.Id == set.ExerciseId);
             }
             return View(temp);
         }
@@ -60,46 +96,50 @@ namespace Gym.Controllers
             {
                 HttpContext.Session.SetObject(SessionKeyPlan, input.exercises);
             }
-            
-            if(input.operation==null)
+
+            if (input.operation == null)
             {
                 TempData["ErrorMessage"] = "Unexpected error (operation is null),please try again";
                 return RedirectToAction("Create");
             }
-            if(input.operation == 0) {
-                if(input.exerciseIndex == null)
-                {
-                    TempData["ErrorMessage"] = "Unexpected error (exerciseIndex is null),please try again";
-                    return RedirectToAction("Create");
-                }
-                return RedirectToAction("DeleteExercise", "Exercise", new { exerciseIndex = input.exerciseIndex });
-            }else if(input.operation == 1)
+            if (input.operation == 0)
             {
-                if (input.exerciseIndex == null)
+                if (input.exerciseIndex != null)
                 {
-                    TempData["ErrorMessage"] = "Unexpected error (exerciseIndex is null),please try again";
-                    return RedirectToAction("Create");
-                }
-                return RedirectToAction("AddSet", "Exercise", new { exerciseIndex = input.exerciseIndex });
-            }else if(input.operation == 2)
-            {
-                if (input.exerciseIndex == null|| input.setFeildIndex == null)
-                {
-                    TempData["ErrorMessage"] = "Unexpected error (exerciseIndex is null or setFeildIndex is null),please try again";
-                    return RedirectToAction("Create");
-                }
-                return RedirectToAction("DeleteSet", "Exercise", new { exerciseIndex = input.exerciseIndex, setFeildIndex = input.setFeildIndex });
-            }else if(input.operation == 3)
-            {
-                return RedirectToAction("AddExercise", "Exercise");
-            }else if(input.operation == 4)
-            {
-                if (ModelState.IsValid)
-                {
-                    RedirectToAction("SaveThePlan");
+                    return RedirectToAction("DeleteExercise", "Exercise", new { exerciseIndex = input.exerciseIndex });
                 }
             }
-            return NotFound();
+            else if (input.operation == 1)
+            {
+                if (input.exerciseIndex != null)
+                {
+                    return RedirectToAction("AddSet", "Exercise", new { exerciseIndex = input.exerciseIndex });
+                }
+            }
+            else if (input.operation == 2)
+            {
+                if (input.exerciseIndex != null && input.setFeildIndex != null)
+                {
+                    return RedirectToAction("DeleteSet", "Exercise", new { exerciseIndex = input.exerciseIndex, setFeildIndex = input.setFeildIndex });
+                }
+            }
+            else if (input.operation == 3)
+            {
+                return RedirectToAction("AddExercise", "Exercise");
+            }
+            else if (input.operation == 4)
+            {
+                if (!ModelState.IsValid)
+                {
+                    TempData["ErrorMessage"] = "Name is required";
+                    return RedirectToAction("Create");
+                }
+
+               return RedirectToAction("SaveThePlan");
+
+            }
+            TempData["ErrorMessage"] = "Unexpected error, please try again";
+            return RedirectToAction("Create");
         }
         public async Task<IActionResult> SaveThePlan()
         {
@@ -117,22 +157,41 @@ namespace Gym.Controllers
                 {
                     UserId = id,
                     Name = temp.Name,
-                    Date = DateTime.Now
                 };
                 await _context.TrainingPlans.AddAsync(trainingPlan);
                 await _context.SaveChangesAsync();
                 foreach (var set in temp.Sets)
                 {
-                    set.TrainingId = trainingPlan.Id;
+                    Set new_set = new Set
+                    {
+                        TrainingId = trainingPlan.Id,
+                        ExerciseId = set.ExerciseId,
+                    };
+                    await _context.Sets.AddAsync(new_set);
+                    await _context.SaveChangesAsync();
+                    foreach (var setAttribute in set.Field)
+                    {
+                        SetAttribute set_attribute = new SetAttribute
+                        {
+                            SetId = new_set.Id,
+                            Reps = setAttribute.Reps,
+                            Weight = setAttribute.Weight
+
+                        };
+                        await _context.SetAttributes.AddAsync(set_attribute);
+                    }
                 }
-                await _context.Sets.AddRangeAsync(temp.Sets);
                 await _context.SaveChangesAsync();
                 HttpContext.Session.Remove(SessionKeyPlan);
-            }catch (Exception e)
-            {
-                await Console.Out.WriteLineAsync("will thats fuccked shit");
+                TempData["SuccessMessage"] = "The training plan is Saved";
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            catch (Exception e)
+            {
+                await Console.Out.WriteLineAsync("Error in saving training paln");
+            }
+            TempData["ErrorMessage"] = "Unexpected error in saving the training plan";
+            return RedirectToAction("Create");
         }
     }
 }

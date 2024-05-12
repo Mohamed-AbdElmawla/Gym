@@ -1,0 +1,53 @@
+﻿@model Gym.View_Models.TrainingPlanViewModel
+
+@{
+    ViewData["Title"] = "Training Plan Details";
+}
+
+<div class="container mt-4">
+    <h2>@Model.Name</h2>
+    <p><strong>Date:</strong> @Model.Date.ToShortDateString()</p>
+
+    @if (Model.Sets != null && Model.Sets.Any())
+    {
+        <h3>Exercise Details:</h3>
+
+        @foreach (var exerciseSet in Model.Sets)
+        {
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="@Url.Action("ExerciseDetails", "Exercise", new { ExerciseId = exerciseSet.ExerciseId })">@exerciseSet.Exercise.Name</a>
+                    </h4>
+                    <img src="@exerciseSet.Exercise.ImageUrl" alt="@exerciseSet.Exercise.Name" class="img-fluid mb-3" style="max-height: 200px;">
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Set</th>
+                                <th>Weight</th>
+                                <th>Reps</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var set in exerciseSet.Field)
+                            {
+                                <tr>
+                                    <td>@(exerciseSet.Field.IndexOf(set) + 1)</td>
+                                    <td>@set.Weight</td>
+                                    <td>@set.Reps</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No sets available for this training plan.</p>
+    }
+
+    <a href="@Url.Action("Index", "Workout")" class="btn btn-primary">Back to Training Plans</a>
+</div>

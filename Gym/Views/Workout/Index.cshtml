@@ -1,4 +1,92 @@
 ﻿@model List<Gym.Models.TrainingPlan>
-<a href="/WorkOut/Create">
-   <button>Create a trining plan</button>
-</a>
+
+@{
+    ViewData["Title"] = "Training Plans";
+}
+
+@{
+    var SuccessMessage = TempData["SuccessMessage"];
+    var ErrorMessage = TempData["ErrorMessage"];
+}
+<style>
+    /* Styling for message */
+    .alert {
+        color: white;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+
+    .alert-success {
+        background-color: green;
+    }
+
+    .alert-danger {
+        background-color: red;
+    }
+</style>
+
+
+@if (SuccessMessage != null)
+{
+    <div id="SuccessMessage" class="alert alert-success">
+        @SuccessMessage
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#SuccessMessage').fadeOut('slow');
+            }, 3000); // 3000 milliseconds = 3 seconds
+        });
+    </script>
+}
+@if (ErrorMessage != null)
+{
+    <div id="ErrorMessage" class="alert alert-danger">
+        @ErrorMessage
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#ErrorMessage').fadeOut('slow');
+            }, 3000); // 3000 milliseconds = 3 seconds
+        });
+    </script>
+}
+<div class="container mt-4">
+    <h2>Training Plans</h2>
+
+    <a href="/Workout/Create" class="btn btn-primary mb-3">Create a Training Plan</a>
+
+    <div class="row">
+        @foreach (var plan in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@plan.Name</h5>
+                        <p class="card-text">Created on: @plan.Date.ToShortDateString()</p>
+                        <a href="@Url.Action("Details", "Workout", new { trainingPlanId = plan.Id })" class="btn btn-primary mr-2">View Details</a>
+                        <button class="btn btn-danger" onclick="confirmDelete('@plan.Id')">Delete</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Custom JavaScript code can be added here if needed
+
+        function confirmDelete(trainingPlanId) {
+            if (confirm("Are you sure you want to delete this training plan?")) {
+                // Redirect to delete action with the training plan id
+                window.location.href = "/Workout/Delete?trainingPlanId=" + trainingPlanId;
+            }
+        }
+    </script>
+}

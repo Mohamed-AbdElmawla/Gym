@@ -129,7 +129,7 @@ namespace Gym.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Gym.Models.CoachEnrollment", b =>
@@ -161,7 +161,7 @@ namespace Gym.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CoachEnrollments");
+                    b.ToTable("CoachEnrollments", (string)null);
                 });
 
             modelBuilder.Entity("Gym.Models.Exercise", b =>
@@ -186,7 +186,7 @@ namespace Gym.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Exercises");
+                    b.ToTable("Exercises", (string)null);
                 });
 
             modelBuilder.Entity("Gym.Models.Message", b =>
@@ -221,7 +221,7 @@ namespace Gym.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("Gym.Models.Set", b =>
@@ -244,7 +244,7 @@ namespace Gym.Migrations
 
                     b.HasIndex("TrainingId");
 
-                    b.ToTable("Sets");
+                    b.ToTable("Sets", (string)null);
                 });
 
             modelBuilder.Entity("Gym.Models.SetAttribute", b =>
@@ -268,7 +268,7 @@ namespace Gym.Migrations
 
                     b.HasIndex("SetId");
 
-                    b.ToTable("SetAttribute");
+                    b.ToTable("SetAttributes", (string)null);
                 });
 
             modelBuilder.Entity("Gym.Models.Subscription", b =>
@@ -297,7 +297,7 @@ namespace Gym.Migrations
 
                     b.HasIndex("CoachId");
 
-                    b.ToTable("Subscriptions");
+                    b.ToTable("Subscriptions", (string)null);
                 });
 
             modelBuilder.Entity("Gym.Models.SubscriptionUser", b =>
@@ -324,7 +324,7 @@ namespace Gym.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("SubscriptionUser");
+                    b.ToTable("SubscriptionUser", (string)null);
                 });
 
             modelBuilder.Entity("Gym.Models.TrainingPlan", b =>
@@ -350,7 +350,7 @@ namespace Gym.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TrainingPlans");
+                    b.ToTable("TrainingPlans", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -544,7 +544,7 @@ namespace Gym.Migrations
                     b.HasOne("Gym.Models.Set", null)
                         .WithMany("Field")
                         .HasForeignKey("SetId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
 

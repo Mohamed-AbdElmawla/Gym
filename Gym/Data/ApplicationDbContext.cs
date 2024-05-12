@@ -15,6 +15,7 @@ namespace Gym.Data
         public DbSet<TrainingPlan> TrainingPlans { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<Set> Sets { get; set; }
+        public DbSet<SetAttribute> SetAttributes { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CoachEnrollment> CoachEnrollments { get; set; }
@@ -23,6 +24,13 @@ namespace Gym.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<SetAttribute>()
+               .HasOne<Set>()
+               .WithMany(s => s.Field)
+               .HasForeignKey(s => s.SetId)
+               .IsRequired()
+               .OnDelete(DeleteBehavior.ClientCascade);
 
             modelBuilder.Entity<ApplicationUser>()
                .HasMany<TrainingPlan>()

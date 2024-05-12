@@ -67,9 +67,32 @@
         .btn {
             margin-top: 20px;
         }
+
+        #ErrorMessage {
+            color: white;
+            background-color: red;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
+    @{
+        var ErrorMessage = TempData["ErrorMessage"] as string;
+    }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    @if (!string.IsNullOrEmpty(ErrorMessage))
+    {
+        <div id="ErrorMessage" class="alert alert-error">@ErrorMessage</div>
+        <script>
+            $(document).ready(function () {
+                setTimeout(function () {
+                    $('#ErrorMessage').fadeOut('slow');
+                }, 3000); // 3000 milliseconds = 3 seconds
+            });
+        </script>
+    }
     <form id="trainingPlanForm" asp-action="ManageReqeusts" method="post">
         <input type="hidden" id="operation" name="input.operation" value="" />
         <input type="hidden" id="exerciseIndex" name="input.exerciseIndex" value="" />
@@ -113,10 +136,11 @@
                                         <strong>Set @(j + 1):</strong>
                                         Weight: <input type="number" class="set-input" name="input.exercises.Sets[@i].Field[@j].Weight" value="@set.Weight" min="0" step="0.5">
                                         Reps: <input type="number" class="set-input" name="input.exercises.Sets[@i].Field[@j].Reps" value="@set.Reps" min="0">
-                                        <button type="button" class="delete-set-button" data-exercise-index="@i" data-set-field-index="@j">Delete</button>
+                                        <button type="submit" class="delete-set-button" data-exercise-index="@i" data-set-field-index="@j">Delete</button>
                                     </li>
                                 }
                             </ul>
+                            <input type="hidden" name="input.exercises.Sets[@i].ExerciseId" value="@Model.Sets[i].ExerciseId" />
                             <button type="submit" class="add-set-button" data-exercise-index="@i">Add Set</button>
                         </div>
                     </div>
