@@ -97,6 +97,10 @@ namespace Gym.Controllers
                     {
                         "Member"
                     };
+                    if (enrollment.User==null)
+                    {
+                        enrollment.User = await _userManager.FindByIdAsync(enrollment.UserId);
+                    }
                     await _userManager.RemoveFromRolesAsync(enrollment.User, roles);
                     await _userManager.AddToRoleAsync(enrollment.User, "Coach");
                     enrollment.Status = Gym.Models.Status.Accepted;

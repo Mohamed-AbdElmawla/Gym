@@ -1,307 +1,275 @@
 {
   "Files": [
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Gym.bundle.scp.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Gym.bundle.scp.css",
       "PackagePath": "staticwebassets\\Gym.bundle.scp.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\css\\site.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\enrollments\\0ad2b766-1b4c-4c23-94cf-eaf0f61f84cc.jpg",
-      "PackagePath": "staticwebassets\\enrollments\\0ad2b766-1b4c-4c23-94cf-eaf0f61f84cc.jpg"
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\enrollments\\ce8a66a2-89ac-4d70-9a39-b67936a396d0.jpeg",
+      "PackagePath": "staticwebassets\\enrollments\\ce8a66a2-89ac-4d70-9a39-b67936a396d0.jpeg"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\enrollments\\12317522-31ee-4ab3-a7dc-125ee48393ec.jpg",
-      "PackagePath": "staticwebassets\\enrollments\\12317522-31ee-4ab3-a7dc-125ee48393ec.jpg"
-    },
-    {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\enrollments\\985ad6d3-0952-46fe-ac07-6ad29cdec420.jpg",
-      "PackagePath": "staticwebassets\\enrollments\\985ad6d3-0952-46fe-ac07-6ad29cdec420.jpg"
-    },
-    {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\enrollments\\a04c0ec5-19d8-4e05-973e-7a70ed353da5.jpg",
-      "PackagePath": "staticwebassets\\enrollments\\a04c0ec5-19d8-4e05-973e-7a70ed353da5.jpg"
-    },
-    {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\favicon.ico",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\images\\3b1b69ca-cbf9-46a9-acbf-3bbc1f222735.jpg",
-      "PackagePath": "staticwebassets\\images\\3b1b69ca-cbf9-46a9-acbf-3bbc1f222735.jpg"
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\images\\c7c2b372-3c09-4019-aa41-37a68a42c69d.jpeg",
+      "PackagePath": "staticwebassets\\images\\c7c2b372-3c09-4019-aa41-37a68a42c69d.jpeg"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\images\\Plank.png",
-      "PackagePath": "staticwebassets\\images\\Plank.png"
-    },
-    {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\images\\Pull-up.png",
-      "PackagePath": "staticwebassets\\images\\Pull-up.png"
-    },
-    {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\images\\Push-up.png",
-      "PackagePath": "staticwebassets\\images\\Push-up.png"
-    },
-    {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\images\\Squat.png",
-      "PackagePath": "staticwebassets\\images\\Squat.png"
-    },
-    {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\images\\c9acd478-2ee1-4e88-bae8-f97b6221f0a6.jpg",
-      "PackagePath": "staticwebassets\\images\\c9acd478-2ee1-4e88-bae8-f97b6221f0a6.jpg"
-    },
-    {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\js\\notification.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\js\\notification.js",
       "PackagePath": "staticwebassets\\js\\notification.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\js\\signalr\\dist\\browser\\signalr.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\js\\signalr\\dist\\browser\\signalr.js",
       "PackagePath": "staticwebassets\\js\\signalr\\dist\\browser\\signalr.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\js\\signalr\\dist\\browser\\signalr.min.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\js\\signalr\\dist\\browser\\signalr.min.js",
       "PackagePath": "staticwebassets\\js\\signalr\\dist\\browser\\signalr.min.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\js\\site.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.js",
       "PackagePath": "staticwebassets\\lib\\microsoft\\signalr\\dist\\browser\\signalr.js"
     },
     {
-      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+      "Id": "D:\\faculty materials\\level 3\\Second term\\Project\\.net 2\\Gym\\Gym\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
       "PackagePath": "staticwebassets\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js"
     },
     {
