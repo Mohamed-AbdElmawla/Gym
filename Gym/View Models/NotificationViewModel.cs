@@ -7,7 +7,7 @@ namespace Gym.View_Models
         public int Id { get; set; }
         public string SenderName { get; set; }
         public string MessageBody { get; set; }
-        public DateTime MessageSentAt { get; set; }
+        public DateTime SentDate { get; set; }
         public bool IsRead { get; set; }
     }
 }

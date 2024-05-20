@@ -31,7 +31,7 @@ namespace Gym.Controllers
                 {
                     Id = Noti.Id,
                     MessageBody = Noti.MessageBody,
-                    MessageSentAt = Noti.MessageSentAt,
+                    SentDate = Noti.SentDate,
                     IsRead = Noti.IsRead,
                     SenderName = Noti.Sender.FirstName
                 };

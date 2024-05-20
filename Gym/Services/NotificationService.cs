@@ -13,6 +13,7 @@ namespace Gym.Services
         Task SendEnrollmentAccepted(string receiverId, string senderId);
         Task SendEnrollmentRejected(string receiverId, string senderId, string message);
         int CountUnReadNotifications(string userId);
+
     }
 
     public class NotificationService : INotificationService

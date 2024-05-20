@@ -1,0 +1,72 @@
+﻿@model List<Message>
+@{
+    ViewBag.Title = "Messages";
+}
+
+<h2>Messages</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No messages to display.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Content</th>
+                <th>Attachment</th>
+                <th>Sent Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var message in Model)
+            {
+                <tr style="font-weight: @(message.IsRead ? "normal" : "bold")">
+                    <td>@message.Sender.UserName</td>
+                    <td>@message.Receiver.UserName</td>
+                    <td>@message.MessageBody</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(message.AttachmentPath))
+                        {
+                            <a href="@message.AttachmentPath">Attachment</a>
+                        }
+                    </td>
+                    <td>@message.SentDate</td>
+                    <td>
+                        @if (!message.IsRead)
+                        {
+                            <form asp-action="MarkAsRead" method="post">
+                                <input type="hidden" name="messageId" value="@message.Id" />
+                                <button type="submit">Mark as Read</button>
+                            </form>
+                        }
+                        <form asp-action="Reply" method="post">
+                            <input type="hidden" name="messageId" value="@message.Id" />
+                            <input type="text" name="content" placeholder="Reply..." />
+                            <button type="submit">Reply</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@* Display validation errors *@
+@if (ViewData.ModelState.ErrorCount > 0)
+{
+    <div class="validation-summary-errors">
+        @Html.ValidationSummary()
+    </div>
+}
+
+<form asp-action="SendMessage" method="post" enctype="multipart/form-data">
+    <input type="text" name="receiverEmail" placeholder="Receiver Email" />
+    <textarea name="content" placeholder="Message content"></textarea>
+    <input type="file" name="attachment" />
+    <button type="submit">Send</button>
+</form>

@@ -20,10 +20,17 @@ namespace Gym.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<CoachEnrollment> CoachEnrollments { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<UserBlock> UserBlocks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<UserBlock>()
+            .HasOne(ub => ub.Blocker)
+            .WithMany(u => u.BlockedUsers)
+            .HasForeignKey(ub => ub.BlockerId)
+            .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<SetAttribute>()
                .HasOne<Set>()
@@ -39,19 +46,17 @@ namespace Gym.Data
                .IsRequired()
                .OnDelete(DeleteBehavior.ClientCascade);
 
-            modelBuilder.Entity<ApplicationUser>()
-                .HasMany<Message>()
-                .WithOne(e => e.Receiver)
-                .HasForeignKey(e => e.ReceiverId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.ClientCascade);
+            modelBuilder.Entity<Message>()
+            .HasOne(m => m.Sender)
+            .WithMany(u => u.SentMessages)
+            .HasForeignKey(m => m.SenderId)
+            .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<ApplicationUser>()
-                .HasMany<Message>()
-                .WithOne(e => e.Sender)
-                .HasForeignKey(e => e.SenderId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.ClientCascade);
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.Receiver)
+                .WithMany(u => u.ReceivedMessages)
+                .HasForeignKey(m => m.ReceiverId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<TrainingPlan>()
                .HasMany<Set>()
