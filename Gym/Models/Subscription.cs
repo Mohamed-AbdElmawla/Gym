@@ -8,7 +8,7 @@
         public int Duration { get; set; } //days
         public double Price { get; set; }
         public ApplicationUser Coach { get; set; }
-        public ICollection<SubscriptionUser> SubscriptionUsers { get; set; }
+        public virtual ICollection<SubscriptionUser>? SubscriptionUsers { get; set; }
 
     }
 }
