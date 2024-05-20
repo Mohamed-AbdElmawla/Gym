@@ -1,0 +1,45 @@
+﻿@model CreateSubscriptionViewModel
+<h1>
+    Create New Subscription 
+
+</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="form-container">
+                <form asp-controller="Subscription" asp-action="Create" method="post">
+                    <div class="form-group">
+                        <label asp-for="Description" for="Description"></label>
+                        <input  asp-for="Description" type="text" class="form-control" placeholder="Description">
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Days" for="Days"></label>
+                                <input asp-for="Days" type="text" class="form-control" value="0">
+                                <span asp-validation-for="Days" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Months" for="Months"></label>
+                                <input asp-for="Months" type="text" class="form-control" value="0">
+                                <span asp-validation-for="Months" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price" for="Price"></label>
+                        <input asp-for="Price" type="text" class="form-control" placeholder="Price">
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"> Create </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

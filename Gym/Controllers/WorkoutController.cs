@@ -197,7 +197,7 @@ namespace Gym.Controllers
             }
             catch (Exception e)
             {
-                await Console.Out.WriteLineAsync("Error in saving training paln");
+                await Console.Out.WriteLineAsync("Error in saving training plan");
             }
             TempData["ErrorMessage"] = "Unexpected error in saving the training plan";
             return RedirectToAction("Create");
