@@ -13,9 +13,5 @@ namespace Gym.Hubs
         {
             await Clients.User(userId).SendAsync("ReceiveNotification", message);
         }
-        public async Task SendMessage(string userId, string message)
-        {
-            await Clients.All.SendAsync("ReceiveMessage", userId, message);
-        }
     }
 }

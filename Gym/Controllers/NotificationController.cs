@@ -23,7 +23,7 @@ namespace Gym.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = _userManager.GetUserId(User);
-            var TempModel = await _context.Messages.Where(x => x.ReceiverId == userId).Include(x=>x.Sender).ToListAsync();
+            var TempModel = await _context.Notifications.Where(x => x.ReceiverId == userId).Include(x=>x.Sender).ToListAsync();
             List<NotificationViewModel> model = new();
             foreach (var Noti in TempModel)
             {
@@ -44,7 +44,7 @@ namespace Gym.Controllers
         public IActionResult MarkAsReaded(int id)
         {
 
-            var notifaction = _context.Messages.SingleOrDefault(n => n.Id == id);
+            var notifaction = _context.Notifications.SingleOrDefault(n => n.Id == id);
             if (notifaction == null)
             {
                 return NotFound();
@@ -61,13 +61,13 @@ namespace Gym.Controllers
         public IActionResult Delete(int id)
         {
 
-            var notifaction = _context.Messages.SingleOrDefault(n => n.Id == id);
+            var notifaction = _context.Notifications.SingleOrDefault(n => n.Id == id);
             if (notifaction == null)
             {
                 return NotFound();
             }
 
-            _context.Messages.Remove(notifaction);
+            _context.Notifications.Remove(notifaction);
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Notification");

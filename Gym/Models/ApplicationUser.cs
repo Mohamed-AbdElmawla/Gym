@@ -28,8 +28,5 @@ namespace Gym.Models
         [PersonalData]
         public string? ProfilePicturePath { get; set; }
         public virtual ICollection<SubscriptionUser> SubscriptionUsers { get; set; }
-        public virtual ICollection<Message> SentMessages { get; set; }
-        public virtual ICollection<Message> ReceivedMessages { get; set; }
-        public virtual ICollection<UserBlock> BlockedUsers { get; set; }
     }
 }

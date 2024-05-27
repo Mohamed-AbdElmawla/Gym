@@ -1,72 +1,37 @@
-﻿@model List<Message>
+﻿@model List<Gym.View_Models.UserMessageViewModel>
+
 @{
-    ViewBag.Title = "Messages";
+    ViewBag.Title = "Users";
 }
 
-<h2>Messages</h2>
+<h2>Users</h2>
 
-@if (Model == null || !Model.Any())
+<form asp-action="Search" method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="search" class="form-control" placeholder="Search by email...">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+@if (Model != null && Model.Any())
 {
-    <p>No messages to display.</p>
+    @foreach (var user in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-body d-flex align-items-center">
+                <img src="@user.ImageUrl" alt="@user.FirstName" class="rounded-circle mr-3" style="width: 50px; height: 50px;">
+                <div>
+                    <a href="@Url.Action("ShowProfile", "Message", new { userEmail = user.Email })" class="card-title">@user.FirstName @user.LastName</a>
+                    <p class="card-text">Unread Messages: @user.UnrededMessages</p>
+                    <a href="@Url.Action("ShowMessages", "Message", new { userEmail = user.Email })" class="btn btn-info">View Messages</a>
+                </div>
+            </div>
+        </div>
+    }
+
 }
 else
 {
-    <table>
-        <thead>
-            <tr>
-                <th>From</th>
-                <th>To</th>
-                <th>Content</th>
-                <th>Attachment</th>
-                <th>Sent Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var message in Model)
-            {
-                <tr style="font-weight: @(message.IsRead ? "normal" : "bold")">
-                    <td>@message.Sender.UserName</td>
-                    <td>@message.Receiver.UserName</td>
-                    <td>@message.MessageBody</td>
-                    <td>
-                        @if (!string.IsNullOrEmpty(message.AttachmentPath))
-                        {
-                            <a href="@message.AttachmentPath">Attachment</a>
-                        }
-                    </td>
-                    <td>@message.SentDate</td>
-                    <td>
-                        @if (!message.IsRead)
-                        {
-                            <form asp-action="MarkAsRead" method="post">
-                                <input type="hidden" name="messageId" value="@message.Id" />
-                                <button type="submit">Mark as Read</button>
-                            </form>
-                        }
-                        <form asp-action="Reply" method="post">
-                            <input type="hidden" name="messageId" value="@message.Id" />
-                            <input type="text" name="content" placeholder="Reply..." />
-                            <button type="submit">Reply</button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <p>No Users.</p>
 }
-
-@* Display validation errors *@
-@if (ViewData.ModelState.ErrorCount > 0)
-{
-    <div class="validation-summary-errors">
-        @Html.ValidationSummary()
-    </div>
-}
-
-<form asp-action="SendMessage" method="post" enctype="multipart/form-data">
-    <input type="text" name="receiverEmail" placeholder="Receiver Email" />
-    <textarea name="content" placeholder="Message content"></textarea>
-    <input type="file" name="attachment" />
-    <button type="submit">Send</button>
-</form>

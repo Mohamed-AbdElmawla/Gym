@@ -205,6 +205,7 @@ namespace Gym.Migrations
 
                     b.Property<string>("MessageBody")
                         .IsRequired()
+                        .HasMaxLength(5000)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReceiverId")
@@ -225,6 +226,41 @@ namespace Gym.Migrations
                     b.HasIndex("SenderId");
 
                     b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("Gym.Models.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MessageBody")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReceiverId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SenderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("SentDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Gym.Models.Set", b =>
@@ -532,15 +568,34 @@ namespace Gym.Migrations
             modelBuilder.Entity("Gym.Models.Message", b =>
                 {
                     b.HasOne("Gym.Models.ApplicationUser", "Receiver")
-                        .WithMany("ReceivedMessages")
+                        .WithMany()
                         .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("Gym.Models.ApplicationUser", "Sender")
-                        .WithMany("SentMessages")
+                        .WithMany()
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("Gym.Models.Notification", b =>
+                {
+                    b.HasOne("Gym.Models.ApplicationUser", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("Gym.Models.ApplicationUser", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("Receiver");
@@ -622,13 +677,13 @@ namespace Gym.Migrations
                     b.HasOne("Gym.Models.ApplicationUser", "Blocked")
                         .WithMany()
                         .HasForeignKey("BlockedId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("Gym.Models.ApplicationUser", "Blocker")
-                        .WithMany("BlockedUsers")
+                        .WithMany()
                         .HasForeignKey("BlockerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("Blocked");
@@ -689,12 +744,6 @@ namespace Gym.Migrations
 
             modelBuilder.Entity("Gym.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("BlockedUsers");
-
-                    b.Navigation("ReceivedMessages");
-
-                    b.Navigation("SentMessages");
-
                     b.Navigation("SubscriptionUsers");
                 });
 

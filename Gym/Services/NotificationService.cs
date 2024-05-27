@@ -12,6 +12,7 @@ namespace Gym.Services
     {
         Task SendEnrollmentAccepted(string receiverId, string senderId);
         Task SendEnrollmentRejected(string receiverId, string senderId, string message);
+        Task SendMessageNotification(string receiverId, string senderId);
         int CountUnReadNotifications(string userId);
 
     }
@@ -29,7 +30,7 @@ namespace Gym.Services
 
         public int CountUnReadNotifications(string userId)
         {
-            var notificationCount = _context.Messages.Count(n => n.ReceiverId == userId && !n.IsRead);
+            var notificationCount = _context.Notifications.Count(n => n.ReceiverId == userId && !n.IsRead);
             return notificationCount;
         }
 
@@ -38,14 +39,28 @@ namespace Gym.Services
             try
             {
                 var messageBody = "Your Enrollment as a coach has been Accepted.\nNow you can add your subscription plan";
-                var notification = new Message { SenderId = senderId, ReceiverId = receiverId, MessageBody = messageBody, IsRead = false };
-                _context.Messages.Add(notification);
+                var notification = new Notification { SenderId = senderId, ReceiverId = receiverId, MessageBody = messageBody, IsRead = false };
+                _context.Notifications.Add(notification);
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                // Handle or log the exception as needed
                 Console.WriteLine($"Error sending enrollment accepted notification: {ex.Message}");
+            }
+        }
+        public async Task SendMessageNotification(string receiverId, string senderId)
+        {
+            try
+            {
+                var sender = _userManager.FindByIdAsync(senderId).Result;
+                var messageBody = $"{sender.FirstName} {sender.LastName} sent message";
+                var notification = new Notification { SenderId = senderId, ReceiverId = receiverId, MessageBody = messageBody, IsRead = false };
+                _context.Notifications.Add(notification);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending Message notification: {ex.Message}");
             }
         }
 
@@ -54,13 +69,12 @@ namespace Gym.Services
             try
             {
                 var messageBody = $"Your Enrollment as a coach has been Rejected.\nThe feedback:\n{message}.";
-                var notification = new Message { SenderId = senderId, ReceiverId = receiverId, MessageBody = messageBody, IsRead = false };
-                _context.Messages.Add(notification);
+                var notification = new Notification { SenderId = senderId, ReceiverId = receiverId, MessageBody = messageBody, IsRead = false };
+                _context.Notifications.Add(notification);
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                // Handle or log the exception as needed
                 Console.WriteLine($"Error sending enrollment rejected notification: {ex.Message}");
             }
         }

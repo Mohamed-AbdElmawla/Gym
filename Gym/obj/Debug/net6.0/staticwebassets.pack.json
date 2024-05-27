@@ -13,12 +13,28 @@
       "PackagePath": "staticwebassets\\enrollments\\3c99c758-df0b-407d-9e49-c37d510055f3.jpg"
     },
     {
+      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\enrollments\\8e2621a7-b817-44bb-a2e7-3cc4384633e3.jpg",
+      "PackagePath": "staticwebassets\\enrollments\\8e2621a7-b817-44bb-a2e7-3cc4384633e3.jpg"
+    },
+    {
       "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\images\\2a651b3b-cfad-49d5-9955-19e2faa5a2b0.jpg",
+      "PackagePath": "staticwebassets\\images\\2a651b3b-cfad-49d5-9955-19e2faa5a2b0.jpg"
+    },
+    {
       "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\images\\3b1b69ca-cbf9-46a9-acbf-3bbc1f222735.jpg",
       "PackagePath": "staticwebassets\\images\\3b1b69ca-cbf9-46a9-acbf-3bbc1f222735.jpg"
+    },
+    {
+      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\images\\616a4d2e-e7ce-4692-a4a1-fff34c2acb0d.jpg",
+      "PackagePath": "staticwebassets\\images\\616a4d2e-e7ce-4692-a4a1-fff34c2acb0d.jpg"
+    },
+    {
+      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\images\\6c1e996e-c0fe-4c87-a1c8-105ffb77f428.jpg",
+      "PackagePath": "staticwebassets\\images\\6c1e996e-c0fe-4c87-a1c8-105ffb77f428.jpg"
     },
     {
       "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\images\\Plank.png",
@@ -35,6 +51,10 @@
     {
       "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\images\\Squat.png",
       "PackagePath": "staticwebassets\\images\\Squat.png"
+    },
+    {
+      "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\images\\bba48c0e-0026-4647-bfff-9458b4d883dc.jpg",
+      "PackagePath": "staticwebassets\\images\\bba48c0e-0026-4647-bfff-9458b4d883dc.jpg"
     },
     {
       "Id": "D:\\GymApp\\Gym\\Gym\\wwwroot\\images\\c9acd478-2ee1-4e88-bae8-f97b6221f0a6.jpg",
